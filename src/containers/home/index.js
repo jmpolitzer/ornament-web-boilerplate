@@ -2,12 +2,7 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from '../../modules/counter';
+import { increment, incrementAsync, decrement, decrementAsync } from '../../modules/counter/creators';
 
 const Home = props => (
   <div>
@@ -24,7 +19,7 @@ const Home = props => (
       <button onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</button>
     </p>
 
-    <button onClick={() => props.changePage()}>Go to about page via redux</button>
+    <button onClick={() => props.changePage()}>About Us</button>
   </div>
 )
 
