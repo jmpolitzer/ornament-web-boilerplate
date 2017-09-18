@@ -2,7 +2,7 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { increment, incrementAsync, decrement, decrementAsync } from '../../modules/counter/creators';
+import { increment, incrementAsync, decrement, decrementAsync } from '../../modules/counter/actionCreators';
 
 const Home = props => (
   <div>

@@ -1,13 +1,13 @@
-import * as Actions from './actions';
+import * as ActionTypes from './actionTypes';
 
 export const increment = () => {
   return dispatch => {
     dispatch({
-      type: Actions.INCREMENT_REQUESTED
+      type: ActionTypes.INCREMENT_REQUESTED
     })
 
     dispatch({
-      type: Actions.INCREMENT
+      type: ActionTypes.INCREMENT
     })
   }
 }
@@ -15,12 +15,12 @@ export const increment = () => {
 export const incrementAsync = () => {
   return dispatch => {
     dispatch({
-      type: Actions.INCREMENT_REQUESTED
+      type: ActionTypes.INCREMENT_REQUESTED
     })
 
     return setTimeout(() => {
       dispatch({
-        type: Actions.INCREMENT
+        type: ActionTypes.INCREMENT
       })
     }, 3000)
   }
@@ -29,11 +29,11 @@ export const incrementAsync = () => {
 export const decrement = () => {
   return dispatch => {
     dispatch({
-      type: Actions.DECREMENT_REQUESTED
+      type: ActionTypes.DECREMENT_REQUESTED
     })
 
     dispatch({
-      type: Actions.DECREMENT
+      type: ActionTypes.DECREMENT
     })
   }
 }
@@ -41,12 +41,12 @@ export const decrement = () => {
 export const decrementAsync = () => {
   return dispatch => {
     dispatch({
-      type: Actions.DECREMENT_REQUESTED
+      type: ActionTypes.DECREMENT_REQUESTED
     })
 
     return setTimeout(() => {
       dispatch({
-        type: Actions.DECREMENT
+        type: ActionTypes.DECREMENT
       })
     }, 3000)
   }
