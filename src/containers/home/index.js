@@ -3,21 +3,17 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { incrementAsync, decrementAsync } from '../../modules/counter/actionCreators';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
 const Home = props => (
   <div>
     <h1>Home</h1>
     <p>Count: {props.count}</p>
 
-    <p>
-      <button onClick={(props.incrementAsync)} disabled={props.isIncrementing}>Increment Async</button>
-    </p>
-
-    <p>
-      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</button>
-    </p>
-
-    <button onClick={() => props.changePage()}>About Us</button>
+    <ButtonToolbar>
+      <Button bsStyle={"success"} onClick={(props.incrementAsync)} disabled={props.isIncrementing}>Increment Async</Button>
+      <Button bsStyle={"danger"} onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</Button>
+    </ButtonToolbar>
   </div>
 )
 
