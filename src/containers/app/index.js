@@ -10,7 +10,7 @@ const App = () => (
     <Navbar inverse collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/">Ornament-Bootstrap</Link>
+          <Link to="/">Ornament-Boilerplate</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
