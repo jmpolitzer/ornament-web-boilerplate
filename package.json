@@ -1,0 +1,20 @@
+{
+  "name": "ornament-web-boilerplate",
+  "version": "1.0.0",
+  "description": "Spin up web apps in no time.",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js"
+  },
+  "author": "Jay Politzer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
