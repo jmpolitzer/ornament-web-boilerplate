@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(compression);
-app.use(express.static(path.join(__dirname, 'build/static')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 let count = 0;
 
@@ -27,7 +27,7 @@ app.get('/decrement', (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname+'/build/static/index.html'));
+  res.sendFile(path.join(__dirname, 'client/build', 'index'));
 });
 
 app.listen(port, () => {
