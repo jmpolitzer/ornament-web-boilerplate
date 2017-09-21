@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(compression);
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'build/static')));
 
 let count = 0;
 
@@ -27,9 +27,9 @@ app.get('/decrement', (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname+'/build/client/src/index.html'));
+  res.sendFile(path.join(__dirname+'/build/static/index.html'));
 });
 
 app.listen(port, () => {
-  console.log('Server listening on port 3001.');
+  console.log(`Server listening on port ${port}.`);
 });
