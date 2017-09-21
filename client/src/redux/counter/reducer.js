@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case ActionTypes.INCREMENT:
       return {
         ...state,
-        count: state.count + 1,
+        count: action.count,
         isIncrementing: !state.isIncrementing
       }
 
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
     case ActionTypes.DECREMENT:
       return {
         ...state,
-        count: state.count - 1,
+        count: action.count,
         isDecrementing: !state.isDecrementing
       }
 
