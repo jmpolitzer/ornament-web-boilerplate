@@ -1,11 +1,19 @@
-const express = require('express')
-const app = express()
-let count = 0
+import compression from 'compression';
+import express from 'express';
+import path from 'path';
+
+const app = express();
+const port = process.env.PORT || 3001;
+
+app.use(compression);
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+let count = 0;
 
 app.get('/increment', (req, res) => {
   console.log('SERVER REQUEST: increment');
 
-  count++
+  count++;
 
   res.json({ count: count });
 });
@@ -13,11 +21,15 @@ app.get('/increment', (req, res) => {
 app.get('/decrement', (req, res) => {
   console.log('SERVER REQUEST: decrement');
 
-  count--
+  count--;
 
   res.json({ count: count });
 });
 
-app.listen(3001, () => {
-  console.log('Listening on port 3001!');
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname+'/build/client/src/index.html'));
+});
+
+app.listen(port, () => {
+  console.log('Server listening on port 3001.');
 });
