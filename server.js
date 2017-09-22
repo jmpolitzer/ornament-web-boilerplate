@@ -5,10 +5,14 @@ import path from 'path';
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(compression);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 let count = 0;
+
+app.get('/', (req, res) => {
+  console.log('u r here.');
+  res.send('yo');
+})
 
 app.get('/increment', (req, res) => {
   console.log('SERVER REQUEST: increment');
