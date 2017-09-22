@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3001;
 
 app.use(compression);
 app.use(express.static(path.join(__dirname, 'client/build')));
