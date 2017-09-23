@@ -2,9 +2,9 @@ import express from 'express';
 import path from 'path';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8080;
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '/../client/build')));
 
 let count = 0;
 
@@ -25,7 +25,7 @@ app.get('/decrement', (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
 });
 
 app.listen(port, () => {

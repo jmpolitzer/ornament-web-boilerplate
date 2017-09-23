@@ -5,9 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "npm test",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-watch server.js",
-    "client": "node start-client.js"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "babel-watch server/index.js",
+    "client": "node start-client.js",
+    "build": "babel server -d dist",
+    "start": "node dist/index.js"
   },
   "babel": {
     "presets": [
