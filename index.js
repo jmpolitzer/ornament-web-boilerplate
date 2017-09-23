@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import http from 'http';
-// import db from './server/db';
 
 const app = express();
 const port = parseInt(process.env.PORT, 10) || 8080;
@@ -28,14 +27,6 @@ app.get('/decrement', (req, res) => {
 
   res.json({ count: count });
 });
-
-// db.authenticate()
-// .then(() => {
-//   console.log('Successfully connected to db.');
-// })
-// .catch((err) => {
-//   console.error('Unable to connect to the database.', err);
-// });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
