@@ -15,23 +15,28 @@ class Home extends React.Component {
   render() {
     return <Grid>
       <Row className="show-grid">
-        <Col md={6}>
-          <h3>Open</h3>
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>Title</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.todoList.map((todo, i) => {
-                return <tr key={i}><td>{todo.title}</td></tr>;
-              })}
-            </tbody>
-          </Table>
-        </Col>
-        <Col md={6}>
-          <h3>Closed</h3>
+        <Col md={12}>
+          <h1>Todos</h1>
+          {this.props.todoList.map((todo, i) => {
+            return <div key={i}><h3>{todo.title}</h3>
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th>Complete</th>
+                  <th>Task</th>
+                </tr>
+              </thead>
+              <tbody>
+                {todo.todoItems && todo.todoItems.map((item, j) => {
+                  return <tr key={j}>
+                    <td>{item.complete ? 'si' : 'no'}</td>
+                    <td>{item.content}</td>
+                  </tr>
+                })}
+              </tbody>
+            </Table>
+          </div>
+          })}
         </Col>
       </Row>
     </Grid>
