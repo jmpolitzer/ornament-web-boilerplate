@@ -2,30 +2,55 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { incrementAsync, decrementAsync } from '../../redux/counter/actionCreators';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { fetchTodos, createTodo, updateTodo,
+         deleteTodo, createTodoItem, updateTodoItem,
+         completeTodoItem, deleteTodoItem } from '../../redux/todos/actions';
+import { Grid, Row, Col, Table } from 'react-bootstrap';
 
-const Home = props => (
-  <div>
-    <h1>Home</h1>
-    <p>Count: {props.count}</p>
+class Home extends React.Component {
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
 
-    <ButtonToolbar>
-      <Button bsStyle={"success"} onClick={(props.incrementAsync)} disabled={props.isIncrementing}>Increment Async</Button>
-      <Button bsStyle={"danger"} onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</Button>
-    </ButtonToolbar>
-  </div>
-)
+  render() {
+    return <Grid>
+      <Row className="show-grid">
+        <Col md={6}>
+          <h3>Open</h3>
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.todoList.map((todo, i) => {
+                return <tr key={i}><td>{todo.title}</td></tr>;
+              })}
+            </tbody>
+          </Table>
+        </Col>
+        <Col md={6}>
+          <h3>Closed</h3>
+        </Col>
+      </Row>
+    </Grid>
+  }
+}
 
 const mapStateToProps = state => ({
-  count: state.counter.count,
-  isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing
+  todoList: state.todos.todoList
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  incrementAsync,
-  decrementAsync,
+  fetchTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  createTodoItem,
+  updateTodoItem,
+  completeTodoItem,
+  deleteTodoItem,
   changePage: () => push('/about-us')
 }, dispatch);
 

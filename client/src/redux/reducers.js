@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import counterReducer from './counter/reducer.js';
+import todosReducer from './todos/reducer.js';
 
 export default combineReducers({
   routing: routerReducer,
-  counter: counterReducer
+  todos: todosReducer
 });
