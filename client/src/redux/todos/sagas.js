@@ -5,27 +5,6 @@ import * as Constants from './constants';
 Our client app acts as a proxy for sending requests to the server. See this for
 more details: https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development */
 
-// export function* incrementAsync() {
-//   yield put({ type: ActionTypes.INCREMENT_REQUESTED });
-//   yield delay(2000);
-//
-//   const response = yield call(() => {
-//     return fetch(`increment`, {
-//       accept: "application/json"
-//     })
-//     .catch(error => {
-//       console.log(error)
-//     }).then(data => {
-//       return data.json();
-//     });
-//   });
-//
-//   console.log('Increment: ', response);
-//
-//   yield put({ type: ActionTypes.INCREMENT, count: response.count });
-// }
-//
-
 export function* fetchTodos() {
   try {
     const todos = yield call(() => {
@@ -42,8 +21,10 @@ export function* fetchTodos() {
   }
 }
 
-export function* createTodo() {
+export function* createTodo(action) {
+  console.log('inside create todo saga', action);
 
+  yield put({ type: Constants.CREATE_TODO_SUCCESS, form: action });
 }
 
 export function* updateTodo() {
@@ -81,11 +62,11 @@ export function* watchCreateTodo() {
   yield takeEvery(Constants.CREATE_TODO, createTodo);
 }
 
-export function* watchUpdateTodos() {
+export function* watchUpdateTodo() {
   yield takeEvery(Constants.UPDATE_TODO, updateTodo);
 }
 
-export function* watchDeleteTodos() {
+export function* watchDeleteTodo() {
   yield takeEvery(Constants.DELETE_TODO, deleteTodo);
 }
 

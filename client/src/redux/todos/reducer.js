@@ -12,6 +12,12 @@ export default (state = initialState, action) => {
         todoList: action.todos
       }
 
+      case Constants.CREATE_TODO_SUCCESS:
+        console.log(action);
+        return {
+          ...state
+        }
+
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Grid, Navbar, Nav, NavItem, Jumbotron } from 'react-bootstrap';
+import { Grid, Navbar, Nav, NavItem } from 'react-bootstrap';
 import Home from '../home';
 import About from '../about';
 
@@ -26,12 +26,10 @@ const App = () => (
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-    <Jumbotron>
-      <Grid>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/about-us" component={About} />
-      </Grid>
-    </Jumbotron>
+    <Grid>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/about-us" component={About} />
+    </Grid>
   </div>
 )
 

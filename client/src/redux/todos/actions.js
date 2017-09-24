@@ -8,9 +8,10 @@ export const fetchTodos = () => {
   }
 }
 
-export const createTodo = () => {
+export const createTodo = (form) => {
   return {
-    type: Constants.CREATE_TODO
+    type: Constants.CREATE_TODO,
+    form
   }
 }
 
