@@ -3,6 +3,7 @@ const TodoItem = require('../models').TodoItem;
 
 module.exports = {
   create(req, res) {
+    console.log(req.body);
     return Todo.create({
       title: req.body.title,
     })

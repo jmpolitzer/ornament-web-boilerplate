@@ -7,7 +7,7 @@ more details: https://github.com/facebookincubator/create-react-app/blob/master/
 
 export function* fetchTodos() {
   try {
-    const todos = yield call(() => {
+    const response = yield call(() => {
       return fetch(`api/todos`, {
         accept: 'application/json'
       })
@@ -15,16 +15,35 @@ export function* fetchTodos() {
         return response.json();
       });
     });
-    yield put({ type: Constants.FETCH_TODOS_SUCCESS, todos: todos });
+    yield put({ type: Constants.FETCH_TODOS_SUCCESS, todos: response });
   } catch(e) {
     yield put({ type: Constants.FETCH_TODOS_FAILURE, message: e.message });
   }
 }
 
+/* TODO: Clean this up - move API calls to separate module and handle errors better. */
 export function* createTodo(action) {
-  console.log('inside create todo saga', action);
+  try {
+    const response = yield call(() => {
+      return fetch(`api/todos`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(action.form)
+      })
+    });
 
-  yield put({ type: Constants.CREATE_TODO_SUCCESS, form: action });
+    if(response.ok) {
+      yield put({ type: Constants.CREATE_TODO_SUCCESS, response });
+      yield put({ type: Constants.FETCH_TODOS });
+    } else {
+      throw response.statusText;
+    }
+  } catch(error) {
+    yield put({ type: Constants.CREATE_TODO_FAILURE, error });
+  }
 }
 
 export function* updateTodo() {

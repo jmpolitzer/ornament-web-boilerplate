@@ -15,8 +15,8 @@ class Home extends React.Component {
     this.props.fetchTodos();
   }
 
-  submit(form) {
-    this.props.createTodo(form);
+  submit() {
+    this.props.createTodo(this.props.createTodoForm.values);
   }
 
   render() {
@@ -57,9 +57,12 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  todoList: state.todos.todoList
-});
+const mapStateToProps = state => {
+  return {
+    todoList: state.todos.todoList,
+    createTodoForm: state.form.createTodo
+  };
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchTodos,

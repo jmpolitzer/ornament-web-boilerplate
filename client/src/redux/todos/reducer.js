@@ -13,7 +13,6 @@ export default (state = initialState, action) => {
       }
 
       case Constants.CREATE_TODO_SUCCESS:
-        console.log(action);
         return {
           ...state
         }
