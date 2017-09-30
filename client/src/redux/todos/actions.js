@@ -15,9 +15,10 @@ export const createTodo = (form) => {
   }
 }
 
-export const updateTodo = () => {
+export const updateTodo = (form) => {
   return {
-    type: Constants.UPDATE_TODO
+    type: Constants.UPDATE_TODO,
+    form
   }
 }
 
@@ -49,5 +50,12 @@ export const completeTodoItem = () => {
 export const deleteTodoItem = () => {
   return {
     type: Constants.DELETE_TODO_ITEM
+  }
+}
+
+export const toggleEditTodoForm = (id) => {
+  console.log('request to TOGGLE edit todo form for: ', id);
+  return {
+    type: Constants.IS_EDITING_TODO
   }
 }

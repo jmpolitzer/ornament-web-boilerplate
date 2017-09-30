@@ -10,7 +10,7 @@ module.exports = {
   },
 
   update(path, body) {
-
+    return axios.put(path, body);
   },
 
   delete(path) {

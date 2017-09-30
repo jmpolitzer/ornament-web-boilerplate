@@ -4,11 +4,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 import CreateTodoForm from '../forms/todos/createTodo';
-// import { UpdateTodoForm } from '../forms/todos/updateTodo';
 import Todo from '../todos/todo';
 import { fetchTodos, createTodo, updateTodo,
          deleteTodo, createTodoItem, updateTodoItem,
-         completeTodoItem, deleteTodoItem } from '../../redux/todos/actions';
+         completeTodoItem, deleteTodoItem, toggleEditTodoForm } from '../../redux/todos/actions';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -21,6 +20,10 @@ class Home extends React.Component {
     this.props.createTodo(this.props.createTodoForm.values);
   }
 
+  edit() {
+
+  }
+
   render() {
     return <Grid>
       <Row className="show-grid">
@@ -28,7 +31,7 @@ class Home extends React.Component {
           <h1>Todos</h1>
         </Col>
         <Col md={9}>
-          <CreateTodoForm onSubmit={this.submit}/>
+          <CreateTodoForm onSubmit={this.submit} />
         </Col>
       </Row>
       <Row className="show-grid">
@@ -63,6 +66,7 @@ class Home extends React.Component {
 const mapStateToProps = state => {
   return {
     todoList: state.todos.todoList,
+    isEditingTodo: state.todos.isEditingTodo,
     createTodoForm: state.form.createTodo,
     updateTodoForm: state.form.updateTodo
   };
@@ -77,6 +81,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   updateTodoItem,
   completeTodoItem,
   deleteTodoItem,
+  toggleEditTodoForm,
   changePage: () => push('/about-us')
 }, dispatch);
 
