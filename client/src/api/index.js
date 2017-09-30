@@ -6,7 +6,7 @@ module.exports = {
   },
 
   create(path, body) {
-    return axios.post(`api/todos`, body);
+    return axios.post(path, body);
   },
 
   update(path, body) {
@@ -14,6 +14,6 @@ module.exports = {
   },
 
   delete(path) {
-
+    return axios.delete(path);
   }
 }

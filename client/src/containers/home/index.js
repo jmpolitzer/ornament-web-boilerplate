@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 import CreateTodoForm from '../forms/todos/createTodo';
+// import { UpdateTodoForm } from '../forms/todos/updateTodo';
+import Todo from '../todos/todo';
 import { fetchTodos, createTodo, updateTodo,
          deleteTodo, createTodoItem, updateTodoItem,
          completeTodoItem, deleteTodoItem } from '../../redux/todos/actions';
@@ -32,7 +34,8 @@ class Home extends React.Component {
       <Row className="show-grid">
         <Col md={12}>
           {this.props.todoList.map((todo, i) => {
-            return <div key={i}><h3>{todo.title}</h3>
+            return <div key={i}>
+            <Todo todo={todo} {...this.props} />
             <Table responsive>
               <thead>
                 <tr>
@@ -60,7 +63,8 @@ class Home extends React.Component {
 const mapStateToProps = state => {
   return {
     todoList: state.todos.todoList,
-    createTodoForm: state.form.createTodo
+    createTodoForm: state.form.createTodo,
+    updateTodoForm: state.form.updateTodo
   };
 };
 

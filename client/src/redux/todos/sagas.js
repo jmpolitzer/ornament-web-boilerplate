@@ -29,8 +29,14 @@ export function* updateTodo() {
 
 }
 
-export function* deleteTodo() {
-
+export function* deleteTodo(action) {
+  try {
+    const response = yield call(Api.delete, `api/todos/${action.id}`);
+    yield put({ type: Constants.DELETE_TODO_SUCCESS, response });
+    yield put({ type: Constants.FETCH_TODOS });
+  } catch(error) {
+    yield put({ type: Constants.DELETE_TODO_FAILURE, error });
+  }
 }
 
 export function* createTodoItem() {

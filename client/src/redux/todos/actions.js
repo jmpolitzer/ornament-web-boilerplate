@@ -21,9 +21,10 @@ export const updateTodo = () => {
   }
 }
 
-export const deleteTodo = () => {
+export const deleteTodo = (id) => {
   return {
-    type: Constants.DELETE_TODO
+    type: Constants.DELETE_TODO,
+    id
   }
 }
 
