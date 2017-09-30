@@ -1,8 +1,9 @@
+import R from 'ramda';
 import * as Constants from './constants';
 
 const initialState = {
   todoList: [],
-  isEditingTodo: false
+  isEditingTodo: []
 }
 
 export default (state = initialState, action) => {
@@ -26,9 +27,15 @@ export default (state = initialState, action) => {
       }
 
     case Constants.IS_EDITING_TODO:
+      /* TODO: Make this prettier. */
+      const exists = R.contains(action.id, state.isEditingTodo);
+      const editables = exists ?
+                        R.reject(R.equals(action.id), state.isEditingTodo) :
+                        R.append(action.id, state.isEditingTodo);
+      console.log(editables);
       return {
         ...state,
-        isEditingTodo: !state.isEditingTodo
+        isEditingTodo: editables
       }
 
     default:

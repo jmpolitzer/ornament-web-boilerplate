@@ -54,8 +54,8 @@ export const deleteTodoItem = () => {
 }
 
 export const toggleEditTodoForm = (id) => {
-  console.log('request to TOGGLE edit todo form for: ', id);
   return {
-    type: Constants.IS_EDITING_TODO
+    type: Constants.IS_EDITING_TODO,
+    id
   }
 }

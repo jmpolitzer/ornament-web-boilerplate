@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Button, ButtonGroup } from 'react-bootstrap';
+import R from 'ramda';
 import EditTodoForm from '../forms/todos/editTodo';
 
 export default class Todo extends React.Component {
@@ -24,7 +25,7 @@ export default class Todo extends React.Component {
 
   render() {
     return <Row className="show-grid">
-      {this.props.isEditingTodo ?
+      {R.contains(this.props.todo.id, this.props.isEditingTodo) ?
       <EditTodoForm onSubmit={this.editTodo} {...this.props} /> :
       <div>
         <h3>{this.props.todo.title}</h3>
