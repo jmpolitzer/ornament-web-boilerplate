@@ -1,9 +1,17 @@
 import { all } from 'redux-saga/effects';
-import { watchIncrementAsync, watchDecrementAsync } from './counter/sagas';
+import { watchFetchTodos, watchCreateTodo, watchUpdateTodo,
+         watchDeleteTodo, watchCreateTodoItem, watchUpdateTodoItem,
+         watchCompleteTodoItem, watchDeleteTodoItem } from './todos/sagas';
 
 export default function* rootSaga() {
   yield all([
-    watchIncrementAsync(),
-    watchDecrementAsync()
+    watchFetchTodos(),
+    watchCreateTodo(),
+    watchUpdateTodo(),
+    watchDeleteTodo(),
+    watchCreateTodoItem(),
+    watchUpdateTodoItem(),
+    watchCompleteTodoItem(),
+    watchDeleteTodoItem()
   ])
 }

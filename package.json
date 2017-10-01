@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm test",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-watch server/index.js",
+    "server": "babel-watch index.js",
     "client": "node start-client.js",
     "build": "babel server -d dist",
     "start": "node dist/index.js"
@@ -20,7 +20,13 @@
   "author": "Jay Politzer",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.4"
+    "axios": "^0.16.2",
+    "body-parser": "^1.18.2",
+    "express": "^4.15.4",
+    "morgan": "^1.8.2",
+    "mysql2": "^1.4.2",
+    "ramda": "^0.24.1",
+    "sequelize": "^4.10.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
