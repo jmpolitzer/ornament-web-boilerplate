@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Table } from 'react-bootstrap';
+import TodoItem from './todoItem';
 
 export default class TodoItemList extends React.Component {
   render() {
@@ -15,14 +16,8 @@ export default class TodoItemList extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.todo.todoItems && this.props.todo.todoItems.map((item, j) => {
-            return <tr key={j}>
-              <td>{item.complete ? 'si' : 'no'}</td>
-              <td>{item.content}</td>
-              <td>Edit</td>
-              <td>Delete</td>
-              <td>Complete</td>
-            </tr>
+          {this.props.todo.todoItems && this.props.todo.todoItems.map((item, i) => {
+            return <TodoItem key={i} item={item} deleteTodoItem={this.props.deleteTodoItem} />
           })}
         </tbody>
       </Table>

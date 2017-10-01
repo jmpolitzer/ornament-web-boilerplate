@@ -18,7 +18,7 @@ let CreateTodoItemForm = props => {
 }
 
 CreateTodoItemForm = reduxForm({
-  form: 'createTodoItem'
+  form: 'createTodoItemForm'
 })(CreateTodoItemForm);
 
 export default CreateTodoItemForm;

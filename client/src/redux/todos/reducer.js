@@ -38,6 +38,12 @@ export default (state = initialState, action) => {
         ...state
       }
 
+    /* TODO: Do we need this? */
+    case Constants.DELETE_TODO_ITEM_SUCCESS:
+      return {
+        ...state
+      }
+
     case Constants.IS_EDITING_TODO:
       /* TODO: Make this prettier. */
       const editables = R.contains(action.id, state.isEditingTodo) ?

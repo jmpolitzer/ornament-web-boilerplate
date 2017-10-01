@@ -50,9 +50,10 @@ export const completeTodoItem = () => {
   }
 }
 
-export const deleteTodoItem = () => {
+export const deleteTodoItem = (item) => {
   return {
-    type: Constants.DELETE_TODO_ITEM
+    type: Constants.DELETE_TODO_ITEM,
+    item
   }
 }
 

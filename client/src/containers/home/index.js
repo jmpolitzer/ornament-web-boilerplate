@@ -60,7 +60,7 @@ const mapStateToProps = state => {
   R.pluck('id')(state.todos.todoList).forEach((todoId) => {
     proppedState[`createTodoItemForm-${todoId}`] = state.form[`createTodoItemForm-${todoId}`];
   })
-  
+
   return proppedState;
 };
 

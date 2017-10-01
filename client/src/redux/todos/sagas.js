@@ -67,8 +67,14 @@ export function* completeTodoItem() {
 
 }
 
-export function* deleteTodoItem() {
-
+export function* deleteTodoItem(action) {
+  try {
+    const response = yield call(Api.delete, `api/todos/${action.item.todoId}/items/${action.item.id}`);
+    yield put({ type: Constants.DELETE_TODO_ITEM_SUCCESS, response });
+    yield put({ type: Constants.FETCH_TODOS });
+  } catch(error) {
+    yield put({ type: Constants.DELETE_TODO_ITEM_FAILURE, error });
+  }
 }
 
 /* These sagas continuously watch for dispatched actions. When one is recognized, the appropriate sagas above
