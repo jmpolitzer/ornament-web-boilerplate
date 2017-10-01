@@ -29,7 +29,10 @@ export default class Todo extends React.Component {
   render() {
     return <Row className="show-grid">
       {R.contains(this.props.todo.id, this.props.isEditingTodo) ?
-      <EditTodoForm onSubmit={this.editTodo} form={`editTodoForm-${this.props.todo.id}`} {...this.props} /> :
+      <EditTodoForm onSubmit={this.editTodo}
+                    initialValues={this.props.todo}
+                    form={`editTodoForm-${this.props.todo.id}`}
+                    {...this.props} /> :
       <div>
         <h3>{this.props.todo.title}</h3>
         <ButtonGroup>
