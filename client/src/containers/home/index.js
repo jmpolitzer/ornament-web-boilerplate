@@ -22,7 +22,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.props.todoList);
     return <Grid>
       <Row className="show-grid">
         <Col md={3}>
@@ -56,11 +55,15 @@ const mapStateToProps = state => {
   Below is simply looking for those dynamically-named forms and adding them to our props. */
   state.todos.isEditingTodo.forEach((todoId) => {
     proppedState[`editTodoForm-${todoId}`] = state.form[`editTodoForm-${todoId}`];
-  })
+  });
 
   R.pluck('id')(state.todos.todoList).forEach((todoId) => {
     proppedState[`createTodoItemForm-${todoId}`] = state.form[`createTodoItemForm-${todoId}`];
-  })
+  });
+
+  R.pluck('id')(R.flatten((R.pluck('todoItems')(state.todos.todoList)))).forEach((todoItemId) => {
+    proppedState[`editTodoItemForm-${todoItemId}`] = state.form[`editTodoItemForm-${todoItemId}`];
+  });
 
   return proppedState;
 };

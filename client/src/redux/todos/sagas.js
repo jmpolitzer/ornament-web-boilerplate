@@ -28,6 +28,7 @@ export function* createTodo(action) {
 }
 
 export function* updateTodo(action) {
+
   try {
     const response = yield call(Api.update, `api/todos/${action.id}`, action.form);
     yield put({ type: Constants.UPDATE_TODO_SUCCESS, response });
@@ -59,8 +60,14 @@ export function* createTodoItem(action) {
   }
 }
 
-export function* updateTodoItem() {
-
+export function* updateTodoItem(action) {
+  try {
+    const response = yield call(Api.update, `api/todos/${action.form.todoId}/items/${action.id}`, action.form);
+    yield put({ type: Constants.UPDATE_TODO_ITEM_SUCCESS, response });
+    yield put({ type: Constants.FETCH_TODOS });
+  } catch(error) {
+    yield put({ type: Constants.UPDATE_TODO_ITEM_FAILURE, error });
+  }
 }
 
 export function* completeTodoItem() {

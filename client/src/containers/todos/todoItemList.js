@@ -10,14 +10,13 @@ export default class TodoItemList extends React.Component {
           <tr>
             <th>Done</th>
             <th>Task</th>
-            <th>Edit</th>
             <th>Delete</th>
             <th>Complete</th>
           </tr>
         </thead>
         <tbody>
           {this.props.todo.todoItems && this.props.todo.todoItems.map((item, i) => {
-            return <TodoItem key={i} item={item} deleteTodoItem={this.props.deleteTodoItem} />
+            return <TodoItem key={i} item={item} {...this.props} />
           })}
         </tbody>
       </Table>

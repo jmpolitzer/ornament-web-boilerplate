@@ -38,9 +38,12 @@ export const createTodoItem = (id, form) => {
   }
 }
 
-export const updateTodoItem = () => {
+export const updateTodoItem = (id, form) => {
+
   return {
-    type: Constants.UPDATE_TODO_ITEM
+    type: Constants.UPDATE_TODO_ITEM,
+    id,
+    form
   }
 }
 
