@@ -22,6 +22,7 @@ class Home extends React.Component {
   }
 
   render() {
+    console.log(this.props.todoList);
     return <Grid>
       <Row className="show-grid">
         <Col md={3}>
