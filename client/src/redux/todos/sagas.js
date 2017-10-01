@@ -64,6 +64,7 @@ export function* updateTodoItem(action) {
   try {
     const response = yield call(Api.update, `api/todos/${action.form.todoId}/items/${action.id}`, action.form);
     yield put({ type: Constants.UPDATE_TODO_ITEM_SUCCESS, response });
+    yield put({ type: Constants.IS_EDITING_TODO_ITEM, id: action.id });
     yield put({ type: Constants.FETCH_TODOS });
   } catch(error) {
     yield put({ type: Constants.UPDATE_TODO_ITEM_FAILURE, error });

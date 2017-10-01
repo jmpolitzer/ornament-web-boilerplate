@@ -3,7 +3,8 @@ import * as Constants from './constants';
 
 const initialState = {
   todoList: [],
-  isEditingTodo: []
+  isEditingTodo: [],
+  isEditingTodoItem: []
 }
 
 export default (state = initialState, action) => {
@@ -46,13 +47,24 @@ export default (state = initialState, action) => {
 
     case Constants.IS_EDITING_TODO:
       /* TODO: Make this prettier. */
-      const editables = R.contains(action.id, state.isEditingTodo) ?
+      const editableTodos = R.contains(action.id, state.isEditingTodo) ?
                         R.reject(R.equals(action.id), state.isEditingTodo) :
                         R.append(action.id, state.isEditingTodo);
 
       return {
         ...state,
-        isEditingTodo: editables
+        isEditingTodo: editableTodos
+      }
+
+    case Constants.IS_EDITING_TODO_ITEM:
+      /* TODO: Make this prettier. */
+      const editableTodoItems = R.contains(action.id, state.isEditingTodoItem) ?
+                        R.reject(R.equals(action.id), state.isEditingTodoItem) :
+                        R.append(action.id, state.isEditingTodoItem);
+
+      return {
+        ...state,
+        isEditingTodoItem: editableTodoItems
       }
 
     default:

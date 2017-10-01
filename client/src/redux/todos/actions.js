@@ -66,3 +66,10 @@ export const toggleEditTodoForm = (id) => {
     id
   }
 }
+
+export const toggleEditTodoItemForm = (id) => {
+  return {
+    type: Constants.IS_EDITING_TODO_ITEM,
+    id
+  }
+}

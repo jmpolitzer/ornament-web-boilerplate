@@ -8,7 +8,8 @@ import CreateTodoForm from '../forms/todos/createTodo';
 import Todo from '../todos/todo';
 import { fetchTodos, createTodo, updateTodo,
          deleteTodo, createTodoItem, updateTodoItem,
-         completeTodoItem, deleteTodoItem, toggleEditTodoForm } from '../../redux/todos/actions';
+         completeTodoItem, deleteTodoItem, toggleEditTodoForm,
+         toggleEditTodoItemForm } from '../../redux/todos/actions';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -48,6 +49,7 @@ const mapStateToProps = state => {
   let proppedState = {
     todoList: state.todos.todoList,
     isEditingTodo: state.todos.isEditingTodo,
+    isEditingTodoItem: state.todos.isEditingTodoItem,
     createTodoForm: state.form.createTodoForm
   };
 
@@ -78,6 +80,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   completeTodoItem,
   deleteTodoItem,
   toggleEditTodoForm,
+  toggleEditTodoItemForm,
   changePage: () => push('/about-us')
 }, dispatch);
 
