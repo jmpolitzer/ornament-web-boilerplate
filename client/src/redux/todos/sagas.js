@@ -71,8 +71,14 @@ export function* updateTodoItem(action) {
   }
 }
 
-export function* completeTodoItem() {
-
+export function* completeTodoItem(action) {
+  try {
+    const response = yield call(Api.update, `api/todos/${action.item.todoId}/items/${action.item.id}`, { complete: !action.item.complete });
+    yield put({ type: Constants.COMPLETE_TODO_ITEM_SUCCESS, response });
+    yield put({ type: Constants.FETCH_TODOS });
+  } catch(error) {
+    yield put({ type: Constants.COMPLETE_TODO_ITEM_FAILURE, error });
+  }
 }
 
 export function* deleteTodoItem(action) {

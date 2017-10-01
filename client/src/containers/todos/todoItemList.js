@@ -11,7 +11,6 @@ export default class TodoItemList extends React.Component {
             <th>Done</th>
             <th>Task</th>
             <th>Delete</th>
-            <th>Complete</th>
           </tr>
         </thead>
         <tbody>

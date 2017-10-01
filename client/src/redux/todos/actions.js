@@ -47,9 +47,10 @@ export const updateTodoItem = (id, form) => {
   }
 }
 
-export const completeTodoItem = () => {
+export const completeTodoItem = (item) => {
   return {
-    type: Constants.COMPLETE_TODO_ITEM
+    type: Constants.COMPLETE_TODO_ITEM,
+    item
   }
 }
 
