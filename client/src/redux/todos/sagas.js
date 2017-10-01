@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { reset } from 'redux-form';
 import * as Constants from './constants';
 import Api from '../../api';
 
@@ -19,6 +20,7 @@ export function* createTodo(action) {
   try {
     const response = yield call(Api.create, `api/todos`, action.form);
     yield put({ type: Constants.CREATE_TODO_SUCCESS, response });
+    yield put(reset(`createTodoForm`));
     yield put({ type: Constants.FETCH_TODOS });
   } catch(error) {
     yield put({ type: Constants.CREATE_TODO_FAILURE, error });
@@ -46,8 +48,15 @@ export function* deleteTodo(action) {
   }
 }
 
-export function* createTodoItem() {
-
+export function* createTodoItem(action) {
+  try {
+    const response = yield call(Api.create, `api/todos/${action.id}/items`, action.form);
+    yield put({ type: Constants.CREATE_TODO_ITEM_SUCCESS, response });
+    yield put(reset(`createTodoItemForm-${action.id}`));
+    yield put({ type: Constants.FETCH_TODOS });
+  } catch(error) {
+    yield put({ type: Constants.CREATE_TODO_ITEM_FAILURE, error });
+  }
 }
 
 export function* updateTodoItem() {

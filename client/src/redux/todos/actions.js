@@ -30,9 +30,11 @@ export const deleteTodo = (id) => {
   }
 }
 
-export const createTodoItem = () => {
+export const createTodoItem = (id, form) => {
   return {
-    type: Constants.CREATE_TODO_ITEM
+    type: Constants.CREATE_TODO_ITEM,
+    id,
+    form
   }
 }
 

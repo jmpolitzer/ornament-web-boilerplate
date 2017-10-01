@@ -1,8 +1,9 @@
 import React from 'react';
+import R from 'ramda';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import CreateTodoForm from '../forms/todos/createTodo';
 import Todo from '../todos/todo';
 import { fetchTodos, createTodo, updateTodo,
@@ -35,22 +36,6 @@ class Home extends React.Component {
           {this.props.todoList.map((todo, i) => {
             return <div key={i}>
             <Todo todo={todo} {...this.props} />
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th>Complete</th>
-                  <th>Task</th>
-                </tr>
-              </thead>
-              <tbody>
-                {todo.todoItems && todo.todoItems.map((item, j) => {
-                  return <tr key={j}>
-                    <td>{item.complete ? 'si' : 'no'}</td>
-                    <td>{item.content}</td>
-                  </tr>
-                })}
-              </tbody>
-            </Table>
           </div>
           })}
         </Col>
@@ -63,13 +48,19 @@ const mapStateToProps = state => {
   let proppedState = {
     todoList: state.todos.todoList,
     isEditingTodo: state.todos.isEditingTodo,
-    createTodoForm: state.form.createTodo
+    createTodoForm: state.form.createTodoForm
   };
 
+  /* Since we have multiple forms of the same type on each page, we need to dynamically name them.
+  Below is simply looking for those dynamically-named forms and adding them to our props. */
   state.todos.isEditingTodo.forEach((todoId) => {
     proppedState[`editTodoForm-${todoId}`] = state.form[`editTodoForm-${todoId}`];
   })
 
+  R.pluck('id')(state.todos.todoList).forEach((todoId) => {
+    proppedState[`createTodoItemForm-${todoId}`] = state.form[`createTodoItemForm-${todoId}`];
+  })
+  
   return proppedState;
 };
 

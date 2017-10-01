@@ -3,22 +3,22 @@ import { Field, reduxForm } from 'redux-form';
 import { Form, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { ReduxInputFormControl } from '../reduxFormControl';
 
-let CreateTodoForm = props => {
+let CreateTodoItemForm = props => {
   const { handleSubmit } = props;
 
   return (
     <Form inline onSubmit={ handleSubmit }>
       <FormGroup>
-        <ControlLabel htmlFor="title">Title</ControlLabel>
-        <Field name="title" type="text" component={ReduxInputFormControl} />
+        <ControlLabel htmlFor="content">Content</ControlLabel>
+        <Field name="content" type="text" component={ReduxInputFormControl} />
       </FormGroup>
-      <Button type="submit">Add New List</Button>
+      <Button type="submit">Add Todo</Button>
     </Form>
   )
 }
 
-CreateTodoForm = reduxForm({
-  form: 'createTodoForm'
-})(CreateTodoForm);
+CreateTodoItemForm = reduxForm({
+  form: 'createTodoItem'
+})(CreateTodoItemForm);
 
-export default CreateTodoForm;
+export default CreateTodoItemForm;
