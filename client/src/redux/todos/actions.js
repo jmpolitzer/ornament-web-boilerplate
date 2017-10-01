@@ -15,9 +15,10 @@ export const createTodo = (form) => {
   }
 }
 
-export const updateTodo = (form) => {
+export const updateTodo = (id, form) => {
   return {
     type: Constants.UPDATE_TODO,
+    id,
     form
   }
 }

@@ -9,6 +9,7 @@ export default class Todo extends React.Component {
 
     this.deleteTodo = this.deleteTodo.bind(this);
     this.toggleEditTodoForm = this.toggleEditTodoForm.bind(this);
+    this.editTodo = this.editTodo.bind(this);
   }
 
   deleteTodo() {
@@ -20,13 +21,15 @@ export default class Todo extends React.Component {
   }
 
   editTodo() {
+    const id = this.props.todo.id;
 
+    this.props.updateTodo(id, this.props[`editTodoForm-${id}`].values);
   }
 
   render() {
     return <Row className="show-grid">
       {R.contains(this.props.todo.id, this.props.isEditingTodo) ?
-      <EditTodoForm onSubmit={this.editTodo} {...this.props} /> :
+      <EditTodoForm onSubmit={this.editTodo} form={`editTodoForm-${this.props.todo.id}`} {...this.props} /> :
       <div>
         <h3>{this.props.todo.title}</h3>
         <ButtonGroup>

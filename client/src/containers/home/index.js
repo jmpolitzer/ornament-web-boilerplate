@@ -20,10 +20,6 @@ class Home extends React.Component {
     this.props.createTodo(this.props.createTodoForm.values);
   }
 
-  edit() {
-
-  }
-
   render() {
     return <Grid>
       <Row className="show-grid">
@@ -64,12 +60,17 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
+  let proppedState = {
     todoList: state.todos.todoList,
     isEditingTodo: state.todos.isEditingTodo,
-    createTodoForm: state.form.createTodo,
-    updateTodoForm: state.form.updateTodo
+    createTodoForm: state.form.createTodo
   };
+
+  state.todos.isEditingTodo.forEach((todoId) => {
+    proppedState[`editTodoForm-${todoId}`] = state.form[`editTodoForm-${todoId}`];
+  })
+
+  return proppedState;
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({

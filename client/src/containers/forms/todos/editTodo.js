@@ -20,7 +20,7 @@ class EditTodoForm extends React.Component {
           <ControlLabel htmlFor="title">Title</ControlLabel>
           <Field name="title" type="text" component={ReduxInputFormControl} />
         </FormGroup>
-        <Button type="submit">Edit</Button>
+        <Button type="submit">Save</Button>
         <Button bsStyle="danger" onClick={this.toggleEditTodoForm}>Cancel</Button>
       </Form>
   }

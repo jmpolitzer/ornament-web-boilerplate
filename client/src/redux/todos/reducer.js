@@ -26,13 +26,17 @@ export default (state = initialState, action) => {
         ...state
       }
 
+    case Constants.UPDATE_TODO_SUCCESS:
+      return {
+        ...state
+      }
+
     case Constants.IS_EDITING_TODO:
       /* TODO: Make this prettier. */
-      const exists = R.contains(action.id, state.isEditingTodo);
-      const editables = exists ?
+      const editables = R.contains(action.id, state.isEditingTodo) ?
                         R.reject(R.equals(action.id), state.isEditingTodo) :
                         R.append(action.id, state.isEditingTodo);
-      console.log(editables);
+
       return {
         ...state,
         isEditingTodo: editables
