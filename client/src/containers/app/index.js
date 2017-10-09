@@ -1,35 +1,24 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Grid, Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Menu, Container } from 'semantic-ui-react';
 import Home from '../home';
 import About from '../about';
 
 const App = () => (
   <div>
-    <Navbar inverse collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <Link to="/">Ornament-Boilerplate</Link>
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
+    <Menu fixed='top' size='large'>
+      <Container>
+        <Menu.Item header as={Link} to='/'>Ornament Web Boilerplate</Menu.Item>
+        <Menu.Item position='right' as={Link} to='/about-us'>About</Menu.Item>
+        <Menu.Item as={Link} to='/'>Login</Menu.Item>
+        <Menu.Item as={Link} to='/'>Signup</Menu.Item>
+      </Container>
+    </Menu>
 
-      <Navbar.Collapse>
-        <Nav>
-          <LinkContainer to="/">
-            <NavItem eventKey={1}>Home</NavItem>
-          </LinkContainer>
-          <LinkContainer to="/about-us">
-            <NavItem eventKey={12}>About</NavItem>
-          </LinkContainer>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-    <Grid>
+    <Container style={{marginTop:'5em'}}>
       <Route exact path="/" component={Home} />
       <Route exact path="/about-us" component={About} />
-    </Grid>
+    </Container>
   </div>
 )
 
