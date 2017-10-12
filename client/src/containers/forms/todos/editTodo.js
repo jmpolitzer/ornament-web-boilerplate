@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Form, FormGroup, ControlLabel, Button } from 'react-bootstrap';
-import { ReduxInputFormControl } from '../reduxFormControl';
+import { Form, Button } from 'semantic-ui-react';
+import SemanticReduxFormField from '../semanticReduxFormField';
 
 class EditTodoForm extends React.Component {
   constructor() {
@@ -15,13 +15,16 @@ class EditTodoForm extends React.Component {
   }
 
   render() {
-    return <Form inline onSubmit={ this.props.handleSubmit }>
-        <FormGroup>
-          <ControlLabel htmlFor="title">Title</ControlLabel>
-          <Field name="title" type="text" component={ReduxInputFormControl} />
-        </FormGroup>
-        <Button type="submit">Save</Button>
-        <Button bsStyle="danger" onClick={this.toggleEditTodoForm}>Cancel</Button>
+    return <Form onSubmit={ this.props.handleSubmit }>
+        <Form.Group>
+          <label>Title</label>
+          <Field name="title"
+                 type="text"
+                 as={Form.Input}
+                 component={SemanticReduxFormField} />
+        </Form.Group>
+        <Button basic color='blue' type="submit">Save</Button>
+        <Button basic color='red' onClick={this.toggleEditTodoForm}>Cancel</Button>
       </Form>
   }
 }

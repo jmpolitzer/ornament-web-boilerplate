@@ -1,18 +1,22 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Form, FormGroup, ControlLabel, Button } from 'react-bootstrap';
-import { ReduxInputFormControl } from '../reduxFormControl';
+import { Form, Button } from 'semantic-ui-react';
+import SemanticReduxFormField from '../semanticReduxFormField';
 
 let CreateTodoForm = props => {
   const { handleSubmit } = props;
 
   return (
-    <Form inline onSubmit={ handleSubmit }>
-      <FormGroup>
-        <ControlLabel htmlFor="title">Title</ControlLabel>
-        <Field name="title" type="text" component={ReduxInputFormControl} />
-      </FormGroup>
-      <Button type="submit">Add New List</Button>
+    <Form onSubmit={ handleSubmit }>
+      <Form.Group>
+        <label>Title</label>
+        <Field name="title"
+               type="text"
+               as={Form.Input}
+               placeholder={'Create new list...'}
+               component={SemanticReduxFormField} />
+      </Form.Group>
+      <Button basic color='blue' type="submit">Add New List</Button>
     </Form>
   )
 }
