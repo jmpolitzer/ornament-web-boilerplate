@@ -74,3 +74,10 @@ export const toggleEditTodoItemForm = (id) => {
     id
   }
 }
+
+export const toggleTodoItems = (id) => {
+  return {
+    type: Constants.IS_SHOWING_TODO_ITEMS,
+    id
+  }
+}

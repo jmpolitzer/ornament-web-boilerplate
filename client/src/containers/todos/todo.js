@@ -1,9 +1,10 @@
 import React from 'react';
-import { Row, Col, Button, ButtonGroup } from 'react-bootstrap';
-import R from 'ramda';
+import { Grid, Button } from 'semantic-ui-react';
+// import R from 'ramda';
 import EditTodoForm from '../forms/todos/editTodo';
 import CreateTodoItemForm from '../forms/todos/createTodoItem';
 import TodoItemList from './todoItemList';
+const R = require('ramda');
 
 export default class Todo extends React.Component {
   constructor() {
@@ -13,6 +14,7 @@ export default class Todo extends React.Component {
     this.toggleEditTodoForm = this.toggleEditTodoForm.bind(this);
     this.editTodo = this.editTodo.bind(this);
     this.createTodoItem = this.createTodoItem.bind(this);
+    this.toggleTodoItems = this.toggleTodoItems.bind(this);
   }
 
   deleteTodo() {
@@ -35,29 +37,31 @@ export default class Todo extends React.Component {
     this.props.createTodoItem(id, this.props[`createTodoItemForm-${id}`].values);
   }
 
+  toggleTodoItems() {
+    this.props.toggleTodoItems(this.props.todo.id);
+  }
+
   render() {
-    return <div><Row className="show-grid">
+    return <div><Grid.Row className="show-grid">
       {R.contains(this.props.todo.id, this.props.isEditingTodo) ?
       <EditTodoForm onSubmit={this.editTodo}
                     initialValues={this.props.todo}
                     form={`editTodoForm-${this.props.todo.id}`}
                     {...this.props} /> :
       <div>
-        <Col xs={12} md={8}>
+        <Grid.Column>
           <h3>{this.props.todo.title}</h3>
-        </Col>
-        <Col xs={6} md={4}>
-          <ButtonGroup>
-            <Button bsStyle="default" onClick={this.toggleEditTodoForm}>Edit</Button>
-            <Button bsStyle="danger" onClick={this.deleteTodo}>Delete</Button>
-          </ButtonGroup>
-        </Col>
+          <Button basic color='teal' onClick={this.toggleTodoItems}>Expand</Button>
+          <Button basic color='yellow' onClick={this.toggleEditTodoForm}>Edit</Button>
+          <Button basic color='red' onClick={this.deleteTodo}>Delete</Button>
+        </Grid.Column>
       </div>}
-    </Row>
-    <CreateTodoItemForm onSubmit={this.createTodoItem}
-                        form={`createTodoItemForm-${this.props.todo.id}`}
-                        {...this.props} />
-    <TodoItemList {...this.props} />
+    </Grid.Row>
+    {R.contains(this.props.todo.id, this.props.isShowingTodoItems) &&
+    <div>
+      <CreateTodoItemForm onSubmit={this.createTodoItem} form={`createTodoItemForm-${this.props.todo.id}`} {...this.props} />
+      <TodoItemList {...this.props} />
+    </div>}
   </div>
   }
 }

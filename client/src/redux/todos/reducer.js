@@ -1,10 +1,13 @@
-import R from 'ramda';
+// import R from 'ramda';
 import * as Constants from './constants';
+
+const R = require('ramda');
 
 const initialState = {
   todoList: [],
   isEditingTodo: [],
-  isEditingTodoItem: []
+  isEditingTodoItem: [],
+  isShowingTodoItems: [],
 }
 
 export default (state = initialState, action) => {
@@ -65,6 +68,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isEditingTodoItem: editableTodoItems
+      }
+
+    case Constants.IS_SHOWING_TODO_ITEMS:
+    /* TODO: Make this prettier. */
+      const showingTodoItems = R.contains(action.id, state.isShowingTodoItems) ?
+                        R.reject(R.equals(action.id), state.isShowingTodoItems) :
+                        R.append(action.id, state.isShowingTodoItems);
+
+      return {
+        ...state,
+        isShowingTodoItems: showingTodoItems,
       }
 
     default:

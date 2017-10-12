@@ -1,15 +1,17 @@
 import React from 'react';
-import R from 'ramda';
+// import R from 'ramda';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Header, Container, Segment } from 'semantic-ui-react';
 import CreateTodoForm from '../forms/todos/createTodo';
 import Todo from '../todos/todo';
 import { fetchTodos, createTodo, updateTodo,
          deleteTodo, createTodoItem, updateTodoItem,
          completeTodoItem, deleteTodoItem, toggleEditTodoForm,
-         toggleEditTodoItemForm } from '../../redux/todos/actions';
+         toggleEditTodoItemForm, toggleTodoItems } from '../../redux/todos/actions';
+
+const R = require('ramda');
 
 class Home extends React.Component {
   componentDidMount() {
@@ -23,25 +25,23 @@ class Home extends React.Component {
   }
 
   render() {
-    return <Grid>
-      <Row className="show-grid">
-        <Col md={3}>
-          <h1>Todos</h1>
-        </Col>
-        <Col md={9}>
-          <CreateTodoForm onSubmit={this.submit} />
-        </Col>
-      </Row>
-      <Row className="show-grid">
-        <Col md={12}>
+    return <div>
+      <Header
+        as='h3'
+        content='Lists'
+        textAlign='center'>
+      </Header>
+      <Container text>
+        <Segment.Group>
+          <Segment><CreateTodoForm onSubmit={this.submit} /></Segment>
           {this.props.todoList.map((todo, i) => {
-            return <div key={i}>
+            return <Segment key={i}>
             <Todo todo={todo} {...this.props} />
-          </div>
+          </Segment>
           })}
-        </Col>
-      </Row>
-    </Grid>
+        </Segment.Group>
+      </Container>
+    </div>
   }
 }
 
@@ -50,6 +50,7 @@ const mapStateToProps = state => {
     todoList: state.todos.todoList,
     isEditingTodo: state.todos.isEditingTodo,
     isEditingTodoItem: state.todos.isEditingTodoItem,
+    isShowingTodoItems: state.todos.isShowingTodoItems,
     createTodoForm: state.form.createTodoForm
   };
 
@@ -81,6 +82,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   deleteTodoItem,
   toggleEditTodoForm,
   toggleEditTodoItemForm,
+  toggleTodoItems,
   changePage: () => push('/about-us')
 }, dispatch);
 
