@@ -2,14 +2,15 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Button } from 'semantic-ui-react';
 import SemanticReduxFormField from '../semanticReduxFormField';
+import { FormError } from '../utils';
 
 let CreateTodoForm = props => {
-  const { handleSubmit } = props;
+  const { handleSubmit, formError, form, dispatch } = props;
 
   return (
     <Form onSubmit={ handleSubmit }>
       <Form.Group>
-        <label>Title</label>
+        {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
         <Field name="title"
                type="text"
                as={Form.Input}
