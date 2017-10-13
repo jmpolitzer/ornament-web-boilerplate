@@ -17,6 +17,7 @@ export default class Todo extends React.Component {
     this.editTodo = this.editTodo.bind(this);
     this.createTodoItem = this.createTodoItem.bind(this);
     this.toggleTodoItems = this.toggleTodoItems.bind(this);
+    this.expandOrCollapseVerbiage = this.expandOrCollapseVerbiage.bind(this);
   }
 
   deleteTodo() {
@@ -55,6 +56,10 @@ export default class Todo extends React.Component {
     this.props.toggleTodoItems(this.props.todo.id);
   }
 
+  expandOrCollapseVerbiage() {
+    return R.contains(this.props.todo.id, this.props.isShowingTodoItems) ? 'Collapse' : 'Expand';
+  }
+
   render() {
     const editTodoForm = `editTodoForm-${this.props.todo.id}`;
     const createTodoItemForm = `createTodoItemForm-${this.props.todo.id}`;
@@ -71,7 +76,7 @@ export default class Todo extends React.Component {
       <div>
         <Grid.Column>
           <h3 onClick={this.toggleEditTodoForm}>{this.props.todo.title}</h3>
-          <Button basic color='teal' onClick={this.toggleTodoItems}>Expand</Button>
+          <Button basic color='teal' onClick={this.toggleTodoItems}>{this.expandOrCollapseVerbiage()}</Button>
           <Button basic color='red' onClick={this.deleteTodo}>Delete</Button>
         </Grid.Column>
       </div>}

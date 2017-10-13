@@ -19,7 +19,7 @@ export default class TodoItem extends React.Component {
   editTodoItem() {
     const itemId = this.props.item.id;
 
-    if(!this.props[`editTodoItemForm-${itemId}`].values.title) {
+    if(!this.props[`editTodoItemForm-${itemId}`].values.content) {
       throw new SubmissionError({
         content: 'Your todo has have something in it!'
       });
@@ -51,11 +51,12 @@ export default class TodoItem extends React.Component {
         <EditTodoItemForm onSubmit={this.editTodoItem}
                           initialValues={this.props.item}
                           form={editTodoItemForm}
+                          {...this.props}
                           formError={showFormErrors(this.props[editTodoItemForm]) ?
                           this.props[editTodoItemForm].submitErrors.content :
                           undefined} /> :
         <p onClick={this.toggleEditTodoItemForm}>{this.props.item.content}</p>}</Table.Cell>
-      <Table.Cell><Button basic color='blue' onClick={this.deleteTodoItem}>Delete</Button></Table.Cell>
+      <Table.Cell><Button basic color='red' onClick={this.deleteTodoItem}>Delete</Button></Table.Cell>
     </Table.Row>
   }
 }
