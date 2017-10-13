@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.1.0",
     "morgan": "^1.8.2",
     "mysql2": "^1.4.2",
+    "react-cookie": "^2.1.1",
     "sequelize": "^4.10.0",
     "sequelize-transforms": "^2.0.0"
   },
