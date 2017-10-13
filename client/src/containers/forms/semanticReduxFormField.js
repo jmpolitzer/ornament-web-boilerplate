@@ -9,10 +9,10 @@ export default function SemanticReduxFormField ({ input, label, meta: { touched,
   function handleChange (e, { value }) {
     return input.onChange(value)
   }
+
   return (
     <div>
-      <As {...input} value={input.value} {...props} onChange={handleChange} error={touched && error} />
-      {touched && (warning && <span>{warning}</span>)}
+      <As {...input} value={input.value} {...props} onChange={handleChange} />
     </div>
   )
 }

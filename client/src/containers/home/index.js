@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Header, Container, Segment } from 'semantic-ui-react';
+import { SubmissionError } from 'redux-form';
 import CreateTodoForm from '../forms/todos/createTodo';
 import Todo from '../todos/todo';
 import { fetchTodos, createTodo, updateTodo,
@@ -15,13 +16,30 @@ const R = require('ramda');
 
 class Home extends React.Component {
   componentDidMount() {
+    this.showCreateTodoError = this.showCreateTodoError.bind(this);
     this.submit = this.submit.bind(this);
 
     this.props.fetchTodos();
   }
 
+  showCreateTodoError() {
+    if(this.props.createTodoForm) {
+      if(this.props.createTodoForm.submitErrors) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   submit() {
-    this.props.createTodo(this.props.createTodoForm.values);
+    if(!this.props.createTodoForm.values) {
+      throw new SubmissionError({
+        text: 'You must give your list a name!'
+      });
+    } else {
+      this.props.createTodo(this.props.createTodoForm.values);
+    }
   }
 
   render() {
@@ -33,7 +51,10 @@ class Home extends React.Component {
       </Header>
       <Container text>
         <Segment.Group>
-          <Segment><CreateTodoForm onSubmit={this.submit} /></Segment>
+          <Segment>
+            <CreateTodoForm onSubmit={this.submit}
+                            formError={this.showCreateTodoError() ? this.props.createTodoForm.submitErrors.text : undefined} />
+          </Segment>
           {this.props.todoList.map((todo, i) => {
             return <Segment key={i}>
             <Todo todo={todo} {...this.props} />
