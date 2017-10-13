@@ -4,7 +4,7 @@ import { Menu, Container } from 'semantic-ui-react';
 import Home from '../home';
 import Auth from '../auth';
 import About from '../about';
-import { userIsAuthenticated, userIsNotAuthenticated } from '../auth/utils';
+import { userIsAuthenticated, userIsNotAuthenticated, loginOrLogout } from '../auth/utils';
 
 const App = () => (
   <div>
@@ -12,7 +12,7 @@ const App = () => (
       <Container>
         <Menu.Item header as={Link} to='/'>Ornament Web Boilerplate</Menu.Item>
         <Menu.Item position='right' as={Link} to='/about-us'>About</Menu.Item>
-        <Menu.Item as={Link} to='/login'>Login</Menu.Item>
+        {loginOrLogout()}
       </Container>
     </Menu>
 

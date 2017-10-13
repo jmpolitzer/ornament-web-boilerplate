@@ -6,3 +6,9 @@ export const login = (form) => {
     form
   }
 }
+
+export const logout = () => {
+  return {
+    type: Constants.LOGOUT
+  }
+}

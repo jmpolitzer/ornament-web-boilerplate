@@ -18,6 +18,12 @@ export default (state = initialState, action) => {
         error: action.error.response.data.message
       }
 
+    case Constants.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: false
+      }
+
     default:
       return state;
   }
