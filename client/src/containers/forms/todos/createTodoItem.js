@@ -6,7 +6,7 @@ import { FormError } from '../../forms/utils';
 
 let CreateTodoItemForm = props => {
   const { handleSubmit, formError, form, dispatch } = props;
-  console.log(props);
+
   return (
     <Form onSubmit={ handleSubmit }>
       <Form.Group>

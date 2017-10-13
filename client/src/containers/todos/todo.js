@@ -30,7 +30,13 @@ export default class Todo extends React.Component {
   editTodo() {
     const id = this.props.todo.id;
 
-    this.props.updateTodo(id, this.props[`editTodoForm-${id}`].values);
+    if(!this.props[`editTodoForm-${id}`].values.title) {
+      throw new SubmissionError({
+        content: 'Your todo list needs a name!'
+      });
+    } else {
+      this.props.updateTodo(id, this.props[`editTodoForm-${id}`].values);
+    }
   }
 
   createTodoItem() {
@@ -50,14 +56,18 @@ export default class Todo extends React.Component {
   }
 
   render() {
-    const formName = `createTodoItemForm-${this.props.todo.id}`;
+    const editTodoForm = `editTodoForm-${this.props.todo.id}`;
+    const createTodoItemForm = `createTodoItemForm-${this.props.todo.id}`;
 
     return <div><Grid.Row className="show-grid">
       {R.contains(this.props.todo.id, this.props.isEditingTodo) ?
       <EditTodoForm onSubmit={this.editTodo}
                     initialValues={this.props.todo}
-                    form={`editTodoForm-${this.props.todo.id}`}
-                    {...this.props} /> :
+                    form={editTodoForm}
+                    {...this.props}
+                    formError={showFormErrors(this.props[editTodoForm]) ?
+                    this.props[editTodoForm].submitErrors.content :
+                    undefined} /> :
       <div>
         <Grid.Column>
           <h3 onClick={this.toggleEditTodoForm}>{this.props.todo.title}</h3>
@@ -69,10 +79,10 @@ export default class Todo extends React.Component {
     {R.contains(this.props.todo.id, this.props.isShowingTodoItems) &&
     <div>
       <CreateTodoItemForm onSubmit={this.createTodoItem}
-                          form={formName}
+                          form={createTodoItemForm}
                           {...this.props}
-                          formError={showFormErrors(this.props[formName]) ?
-                          this.props[formName].submitErrors.content :
+                          formError={showFormErrors(this.props[createTodoItemForm]) ?
+                          this.props[createTodoItemForm].submitErrors.content :
                           undefined} />
       <TodoItemList {...this.props} />
     </div>}
