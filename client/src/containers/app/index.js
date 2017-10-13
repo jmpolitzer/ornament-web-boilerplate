@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import { Menu, Container } from 'semantic-ui-react';
 import Home from '../home';
+import Auth from '../auth';
 import About from '../about';
 
 const App = () => (
@@ -10,13 +11,13 @@ const App = () => (
       <Container>
         <Menu.Item header as={Link} to='/'>Ornament Web Boilerplate</Menu.Item>
         <Menu.Item position='right' as={Link} to='/about-us'>About</Menu.Item>
-        <Menu.Item as={Link} to='/'>Login</Menu.Item>
-        <Menu.Item as={Link} to='/'>Signup</Menu.Item>
+        <Menu.Item as={Link} to='/login'>Login</Menu.Item>
       </Container>
     </Menu>
 
     <Container style={{marginTop:'5em'}}>
       <Route exact path="/" component={Home} />
+      <Route exact path="/login" component={Auth} />
       <Route exact path="/about-us" component={About} />
     </Container>
   </div>

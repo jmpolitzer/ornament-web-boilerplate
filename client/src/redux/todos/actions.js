@@ -1,7 +1,5 @@
 import * as Constants from './constants';
 
-/* These action creators are piped into the home/index.js file. When a user clicks a button
-to fire them off, our sagas will be listening. */
 export const fetchTodos = () => {
   return {
     type: Constants.FETCH_TODOS
