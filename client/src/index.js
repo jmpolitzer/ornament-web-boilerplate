@@ -5,9 +5,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store';
 import './index.css';
 import App from './containers/app';
-import registerServiceWorker from './registerServiceWorker';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+// import registerServiceWorker from './registerServiceWorker';
+import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,4 +17,4 @@ ReactDOM.render(
     </ConnectedRouter>
   </Provider>
   , document.getElementById('root'));
-registerServiceWorker();
+// registerServiceWorker();

@@ -1,31 +1,99 @@
 import React from 'react';
+// import R from 'ramda';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { incrementAsync, decrementAsync } from '../../redux/counter/actionCreators';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Header, Container, Segment } from 'semantic-ui-react';
+import CreateTodoForm from '../forms/todos/createTodo';
+import { SubmissionError } from 'redux-form';
+import { showFormErrors } from '../forms/utils';
+import Todo from '../todos/todo';
+import { fetchTodos, createTodo, updateTodo,
+         deleteTodo, createTodoItem, updateTodoItem,
+         completeTodoItem, deleteTodoItem, toggleEditTodoForm,
+         toggleEditTodoItemForm, toggleTodoItems } from '../../redux/todos/actions';
 
-const Home = props => (
-  <div>
-    <h1>Home</h1>
-    <p>Count: {props.count}</p>
+const R = require('ramda');
 
-    <ButtonToolbar>
-      <Button bsStyle={"success"} onClick={(props.incrementAsync)} disabled={props.isIncrementing}>Increment Async</Button>
-      <Button bsStyle={"danger"} onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</Button>
-    </ButtonToolbar>
-  </div>
-)
+class Home extends React.Component {
+  componentDidMount() {
+    this.submit = this.submit.bind(this);
 
-const mapStateToProps = state => ({
-  count: state.counter.count,
-  isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing
-});
+    this.props.fetchTodos();
+  }
+
+  submit() {
+    if(!this.props.createTodoForm.values) {
+      throw new SubmissionError({
+        text: 'You must give your list a name!'
+      });
+    } else {
+      this.props.createTodo(this.props.createTodoForm.values);
+    }
+  }
+
+  render() {
+    return <div>
+      <Header
+        as='h3'
+        content='Lists'
+        textAlign='center'>
+      </Header>
+      <Container text>
+        <Segment.Group>
+          <Segment>
+            <CreateTodoForm onSubmit={this.submit}
+                            formError={showFormErrors(this.props.createTodoForm) ? this.props.createTodoForm.submitErrors.text : undefined} />
+          </Segment>
+          {this.props.todoList.map((todo, i) => {
+            return <Segment key={i}>
+            <Todo todo={todo} {...this.props} />
+          </Segment>
+          })}
+        </Segment.Group>
+      </Container>
+    </div>
+  }
+}
+
+const mapStateToProps = state => {
+  let proppedState = {
+    todoList: state.todos.todoList,
+    isEditingTodo: state.todos.isEditingTodo,
+    isEditingTodoItem: state.todos.isEditingTodoItem,
+    isShowingTodoItems: state.todos.isShowingTodoItems,
+    createTodoForm: state.form.createTodoForm
+  };
+
+  /* Since we have multiple forms of the same type on each page, we need to dynamically name them.
+  Below is simply looking for those dynamically-named forms and adding them to our props. */
+  state.todos.isEditingTodo.forEach((todoId) => {
+    proppedState[`editTodoForm-${todoId}`] = state.form[`editTodoForm-${todoId}`];
+  });
+
+  R.pluck('id')(state.todos.todoList).forEach((todoId) => {
+    proppedState[`createTodoItemForm-${todoId}`] = state.form[`createTodoItemForm-${todoId}`];
+  });
+
+  R.pluck('id')(R.flatten((R.pluck('todoItems')(state.todos.todoList)))).forEach((todoItemId) => {
+    proppedState[`editTodoItemForm-${todoItemId}`] = state.form[`editTodoItemForm-${todoItemId}`];
+  });
+
+  return proppedState;
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  incrementAsync,
-  decrementAsync,
+  fetchTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  createTodoItem,
+  updateTodoItem,
+  completeTodoItem,
+  deleteTodoItem,
+  toggleEditTodoForm,
+  toggleEditTodoItemForm,
+  toggleTodoItems,
   changePage: () => push('/about-us')
 }, dispatch);
 
