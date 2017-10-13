@@ -13,7 +13,6 @@ export default (state = initialState, action) => {
       }
 
     case Constants.LOGIN_FAILURE:
-      console.log(action.error);
       return {
         ...state,
         error: action.error.response.data.message
