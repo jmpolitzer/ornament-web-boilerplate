@@ -1,9 +1,11 @@
 import React from 'react';
 import { Grid, Button } from 'semantic-ui-react';
+import { SubmissionError } from 'redux-form';
 // import R from 'ramda';
 import EditTodoForm from '../forms/todos/editTodo';
 import CreateTodoItemForm from '../forms/todos/createTodoItem';
 import TodoItemList from './todoItemList';
+import { showFormErrors } from '../forms/utils';
 const R = require('ramda');
 
 export default class Todo extends React.Component {
@@ -34,7 +36,13 @@ export default class Todo extends React.Component {
   createTodoItem() {
     const id = this.props.todo.id;
 
-    this.props.createTodoItem(id, this.props[`createTodoItemForm-${id}`].values);
+    if(!this.props[`createTodoItemForm-${id}`].values) {
+      throw new SubmissionError({
+        content: 'You must write something for your todo!'
+      });
+    } else {
+      this.props.createTodoItem(id, this.props[`createTodoItemForm-${id}`].values);
+    }
   }
 
   toggleTodoItems() {
@@ -42,6 +50,8 @@ export default class Todo extends React.Component {
   }
 
   render() {
+    const formName = `createTodoItemForm-${this.props.todo.id}`;
+
     return <div><Grid.Row className="show-grid">
       {R.contains(this.props.todo.id, this.props.isEditingTodo) ?
       <EditTodoForm onSubmit={this.editTodo}
@@ -50,16 +60,20 @@ export default class Todo extends React.Component {
                     {...this.props} /> :
       <div>
         <Grid.Column>
-          <h3>{this.props.todo.title}</h3>
+          <h3 onClick={this.toggleEditTodoForm}>{this.props.todo.title}</h3>
           <Button basic color='teal' onClick={this.toggleTodoItems}>Expand</Button>
-          <Button basic color='yellow' onClick={this.toggleEditTodoForm}>Edit</Button>
           <Button basic color='red' onClick={this.deleteTodo}>Delete</Button>
         </Grid.Column>
       </div>}
     </Grid.Row>
     {R.contains(this.props.todo.id, this.props.isShowingTodoItems) &&
     <div>
-      <CreateTodoItemForm onSubmit={this.createTodoItem} form={`createTodoItemForm-${this.props.todo.id}`} {...this.props} />
+      <CreateTodoItemForm onSubmit={this.createTodoItem}
+                          form={formName}
+                          {...this.props}
+                          formError={showFormErrors(this.props[formName]) ?
+                          this.props[formName].submitErrors.content :
+                          undefined} />
       <TodoItemList {...this.props} />
     </div>}
   </div>

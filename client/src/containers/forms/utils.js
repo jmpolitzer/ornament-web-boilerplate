@@ -22,3 +22,13 @@ export class FormError extends React.Component {
     );
   }
 }
+
+export function showFormErrors(form) {
+  if(form) {
+    if(form.submitErrors) {
+      return true;
+    }
+  }
+
+  return false;
+}

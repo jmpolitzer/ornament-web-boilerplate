@@ -4,8 +4,9 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Header, Container, Segment } from 'semantic-ui-react';
-import { SubmissionError } from 'redux-form';
 import CreateTodoForm from '../forms/todos/createTodo';
+import { SubmissionError } from 'redux-form';
+import { showFormErrors } from '../forms/utils';
 import Todo from '../todos/todo';
 import { fetchTodos, createTodo, updateTodo,
          deleteTodo, createTodoItem, updateTodoItem,
@@ -16,20 +17,9 @@ const R = require('ramda');
 
 class Home extends React.Component {
   componentDidMount() {
-    this.showCreateTodoError = this.showCreateTodoError.bind(this);
     this.submit = this.submit.bind(this);
 
     this.props.fetchTodos();
-  }
-
-  showCreateTodoError() {
-    if(this.props.createTodoForm) {
-      if(this.props.createTodoForm.submitErrors) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   submit() {
@@ -53,7 +43,7 @@ class Home extends React.Component {
         <Segment.Group>
           <Segment>
             <CreateTodoForm onSubmit={this.submit}
-                            formError={this.showCreateTodoError() ? this.props.createTodoForm.submitErrors.text : undefined} />
+                            formError={showFormErrors(this.props.createTodoForm) ? this.props.createTodoForm.submitErrors.text : undefined} />
           </Segment>
           {this.props.todoList.map((todo, i) => {
             return <Segment key={i}>

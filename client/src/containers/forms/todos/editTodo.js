@@ -17,7 +17,6 @@ class EditTodoForm extends React.Component {
   render() {
     return <Form onSubmit={ this.props.handleSubmit }>
         <Form.Group>
-          <label>Title</label>
           <Field name="title"
                  type="text"
                  as={Form.Input}
