@@ -14,11 +14,15 @@ import { fetchTodos, createTodo, updateTodo,
          toggleEditTodoItemForm, toggleTodoItems } from '../../redux/todos/actions';
 
 const R = require('ramda');
+const axios = require('axios');
+const { Cookies } = require('react-cookie');
+const cookies = new Cookies();
 
 class Home extends React.Component {
   componentDidMount() {
     this.submit = this.submit.bind(this);
 
+    axios.defaults.headers.common['Authorization'] = `JWT ${cookies.get('ornament-token')}`
     this.props.fetchTodos();
   }
 

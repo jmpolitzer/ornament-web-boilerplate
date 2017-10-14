@@ -1,3 +1,4 @@
+const usersController = require('../db/controllers').users;
 const todosController = require('../db/controllers').todos;
 const todoItemsController = require('../db/controllers').todoItems;
 
@@ -6,8 +7,11 @@ module.exports = (app) => {
     message: 'Welcome to the Ornament-Boilerplate API!',
   }));
 
+  app.post('/auth/register', usersController.register);
+  app.post('/auth/sign_in', usersController.signIn);
+
   app.post('/api/todos', todosController.create);
-  app.get('/api/todos', todosController.list);
+  app.get('/api/todos', usersController.loginRequired, todosController.list);
   app.get('/api/todos/:todoId', todosController.retrieve);
   app.put('/api/todos/:todoId', todosController.update);
   app.delete('/api/todos/:todoId', todosController.destroy);
