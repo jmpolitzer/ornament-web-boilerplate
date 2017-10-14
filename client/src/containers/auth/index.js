@@ -1,21 +1,23 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Header, Container, Segment } from 'semantic-ui-react';
+import { Header, Container, Segment, Button } from 'semantic-ui-react';
 import { SubmissionError } from 'redux-form';
 import { showFormErrors } from '../forms/utils';
 import LoginForm from '../forms/auth/login';
-import { login } from '../../redux/auth/actions';
+import RegisterForm from '../forms/auth/register';
+import { login, register, toggleRegisterForm } from '../../redux/auth/actions';
 
 class Auth extends React.Component {
   constructor() {
     super();
 
-    this.login = this.login.bind(this);
+    this.loginOrRegister = this.loginOrRegister.bind(this);
+    this.toggleRegisterForm = this.toggleRegisterForm.bind(this);
   }
 
-  login() {
-    const form = this.props.loginForm;
+  loginOrRegister() {
+    const form = this.props.showRegisterForm ? this.props.registerForm : this.props.loginForm;
     const fields = Object.keys(form.registeredFields);
     let errors = {};
 
@@ -34,24 +36,40 @@ class Auth extends React.Component {
     if(Object.keys(errors).length) {
       throw new SubmissionError(errors);
     } else {
-      this.props.login(form.values)
+      if(!this.props.showRegisterForm) {
+        this.props.login(form.values)
+      } else {
+        this.props.register(form.values)
+      }
     }
   }
 
+  toggleRegisterForm() {
+    this.props.toggleRegisterForm();
+  }
+
   render() {
+    const currentForm = this.props.showRegisterForm ? 'registerForm' : 'loginForm';
+    const currentFormName = this.props.showRegisterForm ? 'Register' : 'Login';
+    const oppositeFormName = this.props.showRegisterForm ? 'Login' : 'Register';
+
     return <div>
       <Header
         as='h3'
-        content='Login'
+        content={currentFormName}
         textAlign='center'>
       </Header>
       <Container text>
         <Segment.Group>
           <Segment>
-            <LoginForm onSubmit={this.login}
-                       formError={showFormErrors(this.props.loginForm) ? this.props.loginForm.submitErrors : undefined} />
+            {this.props.showRegisterForm ?
+            <RegisterForm onSubmit={this.loginOrRegister}
+                          formError={showFormErrors(this.props[currentForm]) ? this.props[currentForm].submitErrors : undefined} /> :
+            <LoginForm onSubmit={this.loginOrRegister}
+                       formError={showFormErrors(this.props[currentForm]) ? this.props[currentForm].submitErrors : undefined} />}
           </Segment>
         </Segment.Group>
+        <Button basic color='teal' onClick={this.toggleRegisterForm}>{oppositeFormName}</Button>
       </Container>
     </div>
   }
@@ -59,12 +77,16 @@ class Auth extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    loginForm: state.form.loginForm
+    loginForm: state.form.loginForm,
+    registerForm: state.form.registerForm,
+    showRegisterForm: state.auth.showRegisterForm
   }
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  login
+  login,
+  register,
+  toggleRegisterForm
 }, dispatch);
 
  export default connect(

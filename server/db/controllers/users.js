@@ -9,8 +9,7 @@ module.exports = {
       hash_password: bcrypt.hashSync(req.body.password, 10)
     })
     .then(user => {
-      user.hash_password = undefined;
-      res.status(201).send(user);
+      return res.json({ token: jwt.sign({ email: user.email, id: user.id }, 'RESTFULAPIs')} );
     })
     .catch(error => res.status(400).send(error));
   },
