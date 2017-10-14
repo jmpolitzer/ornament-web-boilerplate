@@ -15,15 +15,6 @@ export function* login(action) {
   }
 }
 
-export function* logout(action) {
-  cookies.remove('ornament-token');
-  yield put({ type: Constants.LOGOUT_SUCCESS })
-}
-
 export function* watchLogin() {
   yield takeLatest(Constants.LOGIN, login);
-}
-
-export function* watchLogout() {
-  yield takeLatest(Constants.LOGOUT, logout);
 }
