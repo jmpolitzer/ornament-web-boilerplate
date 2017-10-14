@@ -8,7 +8,7 @@ const cookies = new Cookies();
 export function* login(action) {
   try {
     const response = yield call(Api.create, `auth/sign_in`, action.form);
-    cookies.set('ornament-token', response.data.token, { path: '/' })
+    cookies.set('ornament-token', response.data.token, { path: '/' });
     yield put({ type: Constants.LOGIN_SUCCESS });
   } catch(error) {
     yield put({ type: Constants.LOGIN_FAILURE, error });
