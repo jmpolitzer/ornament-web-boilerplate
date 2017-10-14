@@ -15,6 +15,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  User.associate = (models) => {
+    User.hasMany(models.Todo, {
+      foreignKey: 'userId',
+      as: 'todos'
+    });
+  };
+
   User.prototype.comparePassword = function(password) {
     return bcrypt.compareSync(password, this.hash_password);
   }
