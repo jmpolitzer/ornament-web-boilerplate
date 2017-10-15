@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { Menu, Container } from 'semantic-ui-react';
 import Home from '../home';
 import Auth from '../auth';
 import About from '../about';
+import NoMatch from '../noMatch';
 import { userIsAuthenticated, userIsNotAuthenticated, loginOrLogout } from '../auth/utils';
 
 const App = () => (
@@ -17,9 +18,12 @@ const App = () => (
     </Menu>
 
     <Container style={{marginTop:'5em'}}>
-      <Route exact path="/" component={userIsAuthenticated(Home)} />
-      <Route exact path="/login" component={userIsNotAuthenticated(Auth)} />
-      <Route exact path="/about-us" component={About} />
+      <Switch>
+        <Route exact path="/" component={userIsAuthenticated(Home)} />
+        <Route exact path="/login" component={userIsNotAuthenticated(Auth)} />
+        <Route exact path="/about-us" component={About} />
+        <Route component={NoMatch} />
+      </Switch>
     </Container>
   </div>
 )
