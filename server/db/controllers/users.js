@@ -13,17 +13,19 @@ module.exports = {
     .then(user => {
       return res.json({ token: jwt.sign({ email: user.email, id: user.id }, 'RESTFULAPIs')} );
     })
-    .catch(error => res.status(400).send(error));
+    .catch(error => {
+      res.status(401).json({ message: error.errors[0].message });
+    })
   },
 
   signIn(req, res) {
     User.findOne({ where: {email: req.body.email} })
     .then(user => {
       if(!user) {
-        res.status(401).json({ message: 'Authentication failed. User not found.' });
+        res.status(401).json({ message: 'Authentication failed.' });
       } else {
         if(!user.comparePassword(req.body.password)) {
-          res.status(401).json({ message: 'Authentication failed. Wrong password.' });
+          res.status(401).json({ message: 'Authentication failed.' });
         } else {
           return res.json({ token: jwt.sign({ email: user.email, id: user.id }, 'RESTFULAPIs')} );
         }

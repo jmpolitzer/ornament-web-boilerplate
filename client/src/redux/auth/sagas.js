@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { Cookies } from 'react-cookie';
+import { stopSubmit } from 'redux-form';
 import * as Constants from './constants';
 import Api from '../../api';
 
@@ -11,7 +12,7 @@ export function* login(action) {
     cookies.set('ornament-token', response.data.token, { path: '/' });
     yield put({ type: Constants.LOGIN_SUCCESS });
   } catch(error) {
-    yield put({ type: Constants.LOGIN_FAILURE, error });
+    yield put(stopSubmit('loginForm', { email: error.response.data.message }));
   }
 }
 
@@ -21,7 +22,7 @@ export function* register(action) {
     cookies.set('ornament-token', response.data.token, { path: '/' });
     yield put({ type: Constants.REGISTER_SUCCESS });
   } catch(error) {
-    yield put({ type: Constants.REGISTER_FAILURE, error });
+    yield put(stopSubmit('registerForm', { email: error.response.data.message }));
   }
 }
 
