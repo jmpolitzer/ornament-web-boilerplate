@@ -11,20 +11,20 @@ let LoginForm = props => {
   return (
     <Form onSubmit={ handleSubmit }>
       <Form.Field>
-        {(formError && formError['email']) && <FormError error={formError['email']} form={form} dispatch={dispatch} />}
         <Field name="email"
                type="text"
                as={Form.Input}
                placeholder={'email...'}
                component={SemanticReduxFormField} />
+         {(formError && formError['email']) && <FormError error={formError['email']} form={form} dispatch={dispatch} />}
       </Form.Field>
-      {(formError && formError['password']) && <FormError error={formError['password']} form={form} dispatch={dispatch} />}
       <Form.Field>
-       <Field name="password"
-              type="text"
-              as={Form.Input}
-              placeholder={'password...'}
-              component={SemanticReduxFormField} />
+        <Field name="password"
+               type="text"
+               as={Form.Input}
+               placeholder={'password...'}
+               component={SemanticReduxFormField} />
+          {(formError && formError['password']) && <FormError error={formError['password']} form={form} dispatch={dispatch} />}
       </Form.Field>
       <Button.Group>
         <Button basic color='teal' type="submit">Login</Button>

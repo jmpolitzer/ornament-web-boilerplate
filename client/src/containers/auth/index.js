@@ -49,10 +49,9 @@ class Auth extends React.Component {
     const currentForm = isRegister ? 'registerForm' : 'loginForm';
     const currentFormName = isRegister ? 'Register' : 'Login';
 
-    return <Container text textAlign='center'>
-      <Grid>
-        <Grid.Column width={5}/>
-        <Grid.Column width={6}>
+    return <Container textAlign='center'>
+      <Grid textAlign='center' verticalAlign='middle' style={{ height: '100%' }}>
+        <Grid.Column style={{ maxWidth: 450 }}>
           <Header
             as='h3'
             content={currentFormName}
@@ -68,7 +67,6 @@ class Auth extends React.Component {
             </Segment>
           </Segment.Group>
         </Grid.Column>
-        <Grid.Column width={5}/>
       </Grid>
     </Container>
   }
