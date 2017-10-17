@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Form, Button } from 'semantic-ui-react';
+import { Grid, Form, Button, Icon } from 'semantic-ui-react';
 import SemanticReduxFormField from '../semanticReduxFormField';
 import { FormError } from '../utils';
 
@@ -9,15 +9,21 @@ let CreateTodoForm = props => {
 
   return (
     <Form onSubmit={ handleSubmit }>
-      <Form.Group>
-        {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
-        <Field name="title"
-               type="text"
-               as={Form.Input}
-               placeholder={'Create new list...'}
-               component={SemanticReduxFormField} />
-      </Form.Group>
-      <Button basic color='blue' type="submit">Add New List</Button>
+      <Grid textAlign='center'>
+        <Grid.Column width={2} />
+        <Grid.Column width={12} stretched>
+          <Form.Field>
+            <Field name="title"
+                   type="text"
+                   as={Form.Input}
+                   placeholder={'Create new list...'}
+                   component={SemanticReduxFormField} />
+          </Form.Field>
+          <Form.Button color='teal' type="submit">Add New List</Form.Button>
+        </Grid.Column>
+        <Grid.Column width={2} />
+      </Grid>
+      {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
     </Form>
   )
 }

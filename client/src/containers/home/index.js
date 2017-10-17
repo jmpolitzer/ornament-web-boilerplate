@@ -3,7 +3,7 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Header, Container, Segment } from 'semantic-ui-react';
+import { Grid, Header, Container, Segment } from 'semantic-ui-react';
 import CreateTodoForm from '../forms/todos/createTodo';
 import { SubmissionError } from 'redux-form';
 import { showFormErrors } from '../forms/utils';
@@ -40,21 +40,25 @@ class Home extends React.Component {
     return <div>
       <Header
         as='h3'
-        content='Lists'
+        content='Litster'
         textAlign='center'>
       </Header>
-      <Container text>
-        <Segment.Group>
-          <Segment>
-            <CreateTodoForm onSubmit={this.submit}
-                            formError={showFormErrors(this.props.createTodoForm) ? this.props.createTodoForm.submitErrors.text : undefined} />
-          </Segment>
-          {this.props.todoList.map((todo, i) => {
-            return <Segment key={i}>
-            <Todo todo={todo} {...this.props} />
-          </Segment>
-          })}
-        </Segment.Group>
+      <Container textAlign='center'>
+        <Grid centered verticalAlign='middle' style={{ height: '100%' }}>
+          <Grid.Column style={{ maxWidth: 700 }}>
+            <Segment.Group>
+              <Segment>
+                <CreateTodoForm onSubmit={this.submit}
+                                formError={showFormErrors(this.props.createTodoForm) ? this.props.createTodoForm.submitErrors.text : undefined} />
+              </Segment>
+              {this.props.todoList.map((todo, i) => {
+                return <Segment key={i}>
+                <Todo todo={todo} {...this.props} />
+              </Segment>
+              })}
+            </Segment.Group>
+          </Grid.Column>
+        </Grid>
       </Container>
     </div>
   }

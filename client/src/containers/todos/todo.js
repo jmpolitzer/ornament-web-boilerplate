@@ -57,14 +57,14 @@ export default class Todo extends React.Component {
   }
 
   expandOrCollapseVerbiage() {
-    return R.contains(this.props.todo.id, this.props.isShowingTodoItems) ? 'Collapse' : 'Expand';
+    return R.contains(this.props.todo.id, this.props.isShowingTodoItems) ? 'chevron up' : 'tasks';
   }
 
   render() {
     const editTodoForm = `editTodoForm-${this.props.todo.id}`;
     const createTodoItemForm = `createTodoItemForm-${this.props.todo.id}`;
 
-    return <div><Grid.Row className="show-grid">
+    return <div>
       {R.contains(this.props.todo.id, this.props.isEditingTodo) ?
       <EditTodoForm onSubmit={this.editTodo}
                     initialValues={this.props.todo}
@@ -73,14 +73,15 @@ export default class Todo extends React.Component {
                     formError={showFormErrors(this.props[editTodoForm]) ?
                     this.props[editTodoForm].submitErrors.content :
                     undefined} /> :
-      <div>
-        <Grid.Column>
+      <Grid>
+        <Grid.Column width={12}>
           <h3 onClick={this.toggleEditTodoForm}>{this.props.todo.title}</h3>
-          <Button basic color='teal' onClick={this.toggleTodoItems}>{this.expandOrCollapseVerbiage()}</Button>
-          <Button basic color='red' onClick={this.deleteTodo}>Delete</Button>
         </Grid.Column>
-      </div>}
-    </Grid.Row>
+        <Grid.Column width={4}>
+          <Button floated='right' basic icon='trash outline' color='pink' onClick={this.deleteTodo}></Button>
+          <Button floated='right' basic icon={this.expandOrCollapseVerbiage()} color='teal' onClick={this.toggleTodoItems}></Button>
+        </Grid.Column>
+      </Grid>}
     {R.contains(this.props.todo.id, this.props.isShowingTodoItems) &&
     <div>
       <CreateTodoItemForm onSubmit={this.createTodoItem}
