@@ -19,17 +19,17 @@ class EditTodoForm extends React.Component {
     return <Form onSubmit={ this.props.handleSubmit }>
       <Grid>
         <Grid.Column width={12}>
-          {this.props.formError && <FormError error={this.props.formError} form={this.props.form} dispatch={this.props.dispatch} />}
           <Form.Field>
             <Field name="title"
                    type="text"
                    as={Form.Input}
                    component={SemanticReduxFormField} />
           </Form.Field>
+          {this.props.formError && <FormError error={this.props.formError} form={this.props.form} dispatch={this.props.dispatch} />}
         </Grid.Column>
         <Grid.Column width={4}>
-          <Button icon='remove' floated='right' color='pink' onClick={this.toggleEditTodoForm}/>
-          <Button icon='checkmark' floated='right' color='teal' type="submit"/>
+          <Button icon='remove' floated='right' basic color='pink' onClick={this.toggleEditTodoForm}/>
+          <Button icon='checkmark' floated='right' basic color='teal' type="submit"/>
         </Grid.Column>
       </Grid>
     </Form>

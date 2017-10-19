@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Grid, Form, Button, Icon } from 'semantic-ui-react';
+import { Grid, Form } from 'semantic-ui-react';
 import SemanticReduxFormField from '../semanticReduxFormField';
 import { FormError } from '../utils';
 

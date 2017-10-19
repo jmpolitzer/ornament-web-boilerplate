@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Form, Button } from 'semantic-ui-react';
+import { Grid, Form, Button } from 'semantic-ui-react';
 import SemanticReduxFormField from '../semanticReduxFormField';
 import { FormError } from '../../forms/utils';
 
@@ -9,15 +9,21 @@ let CreateTodoItemForm = props => {
 
   return (
     <Form onSubmit={ handleSubmit }>
-      <Form.Group>
-        {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
-        <Field name="content"
-               type="text"
-               as={Form.Input}
-               placeholder='Add new todo...'
-               component={SemanticReduxFormField} />
-      </Form.Group>
-      <Button basic color='blue' type="submit">Add Todo</Button>
+      <Grid>
+        <Grid.Column width={12}>
+          <Form.Field>
+            {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
+            <Field name="content"
+                   type="text"
+                   as={Form.Input}
+                   placeholder='Add new todo...'
+                   component={SemanticReduxFormField} />
+          </Form.Field>
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <Button floated='right' icon='write' basic color='violet' type="submit"/>
+        </Grid.Column>
+      </Grid>
     </Form>
   )
 }

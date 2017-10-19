@@ -73,7 +73,7 @@ export default class Todo extends React.Component {
                     formError={showFormErrors(this.props[editTodoForm]) ?
                     this.props[editTodoForm].submitErrors.content :
                     undefined} /> :
-      <Grid>
+      <Grid verticalAlign='middle'>
         <Grid.Column width={12}>
           <h3 onClick={this.toggleEditTodoForm}>{this.props.todo.title}</h3>
         </Grid.Column>
@@ -90,7 +90,7 @@ export default class Todo extends React.Component {
                           formError={showFormErrors(this.props[createTodoItemForm]) ?
                           this.props[createTodoItemForm].submitErrors.content :
                           undefined} />
-      <TodoItemList {...this.props} />
+      {this.props.todo.todoItems.length > 0 && <TodoItemList {...this.props} />}
     </div>}
   </div>
   }

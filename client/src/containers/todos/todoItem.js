@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Checkbox } from 'semantic-ui-react';
+import { Grid, Icon, Checkbox } from 'semantic-ui-react';
 import { SubmissionError } from 'redux-form';
 // import R from 'ramda';
 import EditTodoItemForm from '../forms/todos/editTodoItem';
@@ -43,20 +43,25 @@ export default class TodoItem extends React.Component {
   render() {
     const editTodoItemForm = `editTodoItemForm-${this.props.item.id}`;
 
-    return <Table.Row>
-      <Table.Cell><Checkbox checked={this.props.item.complete}
-                    onChange={this.toggleItemComplete}
-                    label={{children: 'complete'}} /></Table.Cell>
-      <Table.Cell>{R.contains(this.props.item.id, this.props.isEditingTodoItem) ?
-        <EditTodoItemForm onSubmit={this.editTodoItem}
-                          initialValues={this.props.item}
-                          form={editTodoItemForm}
-                          {...this.props}
-                          formError={showFormErrors(this.props[editTodoItemForm]) ?
-                          this.props[editTodoItemForm].submitErrors.content :
-                          undefined} /> :
-        <p onClick={this.toggleEditTodoItemForm}>{this.props.item.content}</p>}</Table.Cell>
-      <Table.Cell><Button basic color='red' onClick={this.deleteTodoItem}>Delete</Button></Table.Cell>
-    </Table.Row>
+    return  R.contains(this.props.item.id, this.props.isEditingTodoItem) ?
+          <EditTodoItemForm onSubmit={this.editTodoItem}
+                            initialValues={this.props.item}
+                            form={editTodoItemForm}
+                            {...this.props}
+                            formError={showFormErrors(this.props[editTodoItemForm]) ?
+                            this.props[editTodoItemForm].submitErrors.content :
+                            undefined} /> :
+    <Grid>
+      <Grid.Column width={1}>
+        <Checkbox checked={this.props.item.complete}
+                  onChange={this.toggleItemComplete} />
+      </Grid.Column>
+      <Grid.Column width={13}>
+          <p onClick={this.toggleEditTodoItemForm}>{this.props.item.content}</p>
+      </Grid.Column>
+      <Grid.Column width={2}>
+        <Icon style={{float:'right'}} size='large' color='pink' name='trash' onClick={this.deleteTodoItem}/>
+      </Grid.Column>
+    </Grid>
   }
 }
