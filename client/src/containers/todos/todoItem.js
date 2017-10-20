@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Icon, Checkbox } from 'semantic-ui-react';
+import { Segment, Grid, Icon, Checkbox } from 'semantic-ui-react';
 import { SubmissionError } from 'redux-form';
 // import R from 'ramda';
 import EditTodoItemForm from '../forms/todos/editTodoItem';
@@ -43,7 +43,8 @@ export default class TodoItem extends React.Component {
   render() {
     const editTodoItemForm = `editTodoItemForm-${this.props.item.id}`;
 
-    return  R.contains(this.props.item.id, this.props.isEditingTodoItem) ?
+    return <Segment disabled={this.props.item.complete}>
+        {R.contains(this.props.item.id, this.props.isEditingTodoItem) ?
           <EditTodoItemForm onSubmit={this.editTodoItem}
                             initialValues={this.props.item}
                             form={editTodoItemForm}
@@ -62,6 +63,7 @@ export default class TodoItem extends React.Component {
       <Grid.Column width={2}>
         <Icon style={{float:'right'}} size='large' color='pink' name='trash' onClick={this.deleteTodoItem}/>
       </Grid.Column>
-    </Grid>
+    </Grid>}
+  </Segment>
   }
 }

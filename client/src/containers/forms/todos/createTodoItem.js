@@ -8,7 +8,7 @@ let CreateTodoItemForm = props => {
   const { handleSubmit, formError, form, dispatch } = props;
 
   return (
-    <Form onSubmit={ handleSubmit }>
+    <Form style={{ marginBottom: '1em' }} onSubmit={ handleSubmit }>
       <Grid>
         <Grid.Column width={12}>
           <Form.Field>
