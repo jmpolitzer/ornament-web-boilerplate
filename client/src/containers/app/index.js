@@ -21,6 +21,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={userIsAuthenticated(Home)} />
         <Route exact path="/login" component={userIsNotAuthenticated(Auth)} />
+        <Route exact path="/register" component={userIsNotAuthenticated(Auth)} />
         <Route exact path="/about-us" component={About} />
         <Route component={NoMatch} />
       </Switch>

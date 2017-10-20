@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Form, Button } from 'semantic-ui-react';
+import { Grid, Form, Button } from 'semantic-ui-react';
 import SemanticReduxFormField from '../semanticReduxFormField';
 import { FormError } from '../../forms/utils';
 
@@ -17,15 +17,21 @@ class EditTodoForm extends React.Component {
 
   render() {
     return <Form onSubmit={ this.props.handleSubmit }>
-      {this.props.formError && <FormError error={this.props.formError} form={this.props.form} dispatch={this.props.dispatch} />}
-      <Form.Group>
-        <Field name="title"
-               type="text"
-               as={Form.Input}
-               component={SemanticReduxFormField} />
-      </Form.Group>
-      <Button basic color='blue' type="submit">Save</Button>
-      <Button basic color='red' onClick={this.toggleEditTodoForm}>Cancel</Button>
+      <Grid>
+        <Grid.Column width={12}>
+          <Form.Field>
+            <Field name="title"
+                   type="text"
+                   as={Form.Input}
+                   component={SemanticReduxFormField} />
+          </Form.Field>
+          {this.props.formError && <FormError error={this.props.formError} form={this.props.form} dispatch={this.props.dispatch} />}
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <Button icon='remove' floated='right' color='pink' onClick={this.toggleEditTodoForm}/>
+          <Button icon='checkmark' floated='right' color='teal' type="submit"/>
+        </Grid.Column>
+      </Grid>
     </Form>
   }
 }

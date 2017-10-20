@@ -13,9 +13,3 @@ export const register = (form) => {
     form
   }
 }
-
-export const toggleRegisterForm = () => {
-  return {
-    type: Constants.TOGGLE_REGISTER_FORM
-  }
-}

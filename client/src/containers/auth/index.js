@@ -1,23 +1,23 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Header, Container, Segment, Button } from 'semantic-ui-react';
+import { Grid, Header, Container, Segment } from 'semantic-ui-react';
 import { SubmissionError } from 'redux-form';
 import { showFormErrors } from '../forms/utils';
 import LoginForm from '../forms/auth/login';
 import RegisterForm from '../forms/auth/register';
-import { login, register, toggleRegisterForm } from '../../redux/auth/actions';
+import { login, register } from '../../redux/auth/actions';
 
 class Auth extends React.Component {
   constructor() {
     super();
 
     this.loginOrRegister = this.loginOrRegister.bind(this);
-    this.toggleRegisterForm = this.toggleRegisterForm.bind(this);
   }
 
   loginOrRegister() {
-    const form = this.props.showRegisterForm ? this.props.registerForm : this.props.loginForm;
+    const isRegister = this.props.location.pathname === '/register';
+    const form = isRegister ? this.props.registerForm : this.props.loginForm;
     const fields = Object.keys(form.registeredFields);
     let errors = {};
 
@@ -36,7 +36,7 @@ class Auth extends React.Component {
     if(Object.keys(errors).length) {
       throw new SubmissionError(errors);
     } else {
-      if(!this.props.showRegisterForm) {
+      if(!isRegister) {
         this.props.login(form.values)
       } else {
         this.props.register(form.values)
@@ -44,49 +44,44 @@ class Auth extends React.Component {
     }
   }
 
-  toggleRegisterForm() {
-    this.props.toggleRegisterForm();
-  }
-
   render() {
-    const currentForm = this.props.showRegisterForm ? 'registerForm' : 'loginForm';
-    const currentFormName = this.props.showRegisterForm ? 'Register' : 'Login';
-    const oppositeFormName = this.props.showRegisterForm ? 'Login' : 'Register';
+    const isRegister = this.props.location.pathname === '/register';
+    const currentForm = isRegister ? 'registerForm' : 'loginForm';
+    const currentFormName = isRegister ? 'Register' : 'Login';
 
-    return <div>
-      <Header
-        as='h3'
-        content={currentFormName}
-        textAlign='center'>
-      </Header>
-      <Container text>
-        <Segment.Group>
-          <Segment>
-            {this.props.showRegisterForm ?
-            <RegisterForm onSubmit={this.loginOrRegister}
-                          formError={showFormErrors(this.props[currentForm]) ? this.props[currentForm].submitErrors : undefined} /> :
-            <LoginForm onSubmit={this.loginOrRegister}
-                       formError={showFormErrors(this.props[currentForm]) ? this.props[currentForm].submitErrors : undefined} />}
-          </Segment>
-        </Segment.Group>
-        <Button basic color='teal' onClick={this.toggleRegisterForm}>{oppositeFormName}</Button>
-      </Container>
-    </div>
+    return <Container textAlign='center'>
+      <Grid textAlign='center' verticalAlign='middle' style={{ height: '100%' }}>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header
+            as='h3'
+            content={currentFormName}
+            textAlign='center'>
+          </Header>
+          <Segment.Group>
+            <Segment>
+            {isRegister ?
+              <RegisterForm onSubmit={this.loginOrRegister}
+                formError={showFormErrors(this.props[currentForm]) ? this.props[currentForm].submitErrors : undefined} /> :
+              <LoginForm onSubmit={this.loginOrRegister}
+                formError={showFormErrors(this.props[currentForm]) ? this.props[currentForm].submitErrors : undefined} />}
+            </Segment>
+          </Segment.Group>
+        </Grid.Column>
+      </Grid>
+    </Container>
   }
 }
 
 const mapStateToProps = state => {
   return {
     loginForm: state.form.loginForm,
-    registerForm: state.form.registerForm,
-    showRegisterForm: state.auth.showRegisterForm
+    registerForm: state.form.registerForm
   }
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   login,
-  register,
-  toggleRegisterForm
+  register
 }, dispatch);
 
  export default connect(

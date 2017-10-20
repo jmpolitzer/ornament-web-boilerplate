@@ -15,9 +15,9 @@ export class FormError extends React.Component {
 
   render() {
     return (
-      <div>
-        <span>{this.props.error}</span>
+      <div style={{ color:'red', textAlign:'left' }}>
         <Icon link name='close' onClick={this.clearFormError} />
+        <span>{this.props.error}</span>
       </div>
     );
   }
