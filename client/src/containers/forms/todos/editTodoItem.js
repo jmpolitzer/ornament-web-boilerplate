@@ -31,8 +31,8 @@ class EditTodoItemForm extends React.Component {
             {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
           </Grid.Column>
           <Grid.Column width={4}>
-            <Button icon='remove' floated='right' basic color='pink' onClick={this.toggleEditTodoItemForm}/>
-            <Button icon='checkmark' floated='right' basic color='teal' type="submit"/>
+            <Button icon='remove' floated='right' color='pink' onClick={this.toggleEditTodoItemForm}/>
+            <Button icon='checkmark' floated='right' color='teal' type="submit"/>
           </Grid.Column>
         </Grid>
       </Form>

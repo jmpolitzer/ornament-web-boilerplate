@@ -21,7 +21,7 @@ let CreateTodoItemForm = props => {
           </Form.Field>
         </Grid.Column>
         <Grid.Column width={4}>
-          <Button floated='right' icon='write' basic color='violet' type="submit"/>
+          <Button floated='right' icon='write' color='violet' type="submit"/>
         </Grid.Column>
       </Grid>
     </Form>

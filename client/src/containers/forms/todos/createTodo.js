@@ -12,6 +12,7 @@ let CreateTodoForm = props => {
       <Grid>
         <Grid.Column width={13} stretched>
           <Form.Field>
+            {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
             <Field name="title"
                    type="text"
                    as={Form.Input}
@@ -23,7 +24,6 @@ let CreateTodoForm = props => {
           <Button icon='write' color='violet' type="submit" />
         </Grid.Column>
       </Grid>
-      {formError && <FormError error={formError} form={form} dispatch={dispatch} />}
     </Form>
   )
 }

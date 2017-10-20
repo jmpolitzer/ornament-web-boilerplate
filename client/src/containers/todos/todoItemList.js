@@ -1,5 +1,4 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
 import TodoItem from './todoItem';
 
 export default class TodoItemList extends React.Component {

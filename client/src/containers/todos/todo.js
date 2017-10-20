@@ -78,8 +78,8 @@ export default class Todo extends React.Component {
           <h3 onClick={this.toggleEditTodoForm}>{this.props.todo.title}</h3>
         </Grid.Column>
         <Grid.Column width={4}>
-          <Button floated='right' basic icon='trash outline' color='pink' onClick={this.deleteTodo}></Button>
-          <Button floated='right' basic icon={this.expandOrCollapseVerbiage()} color='teal' onClick={this.toggleTodoItems}></Button>
+          <Button floated='right' icon='trash outline' color='pink' onClick={this.deleteTodo}></Button>
+          <Button floated='right' icon={this.expandOrCollapseVerbiage()} color='teal' onClick={this.toggleTodoItems}></Button>
         </Grid.Column>
       </Grid>}
     {R.contains(this.props.todo.id, this.props.isShowingTodoItems) &&
